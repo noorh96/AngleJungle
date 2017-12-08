@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: f01fa303b436a0e4da922048a28d0492
+timeCreated: 1493243757
+licenseType: Pro
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - Tro1: {fileID: 1152687875342736, guid: a44838c6b7154f44faca06c2f6f7081d, type: 2}
+  - Tro2: {fileID: 1277400857420014, guid: 729621ac8292d224291f534c8592aa0f, type: 2}
+  - Tro3: {fileID: 1276046753201932, guid: bcbf674daffb7354593c1b4afe9a0bee, type: 2}
+  - Tro4: {fileID: 1918286963650010, guid: bc8c16950a148f246a370f68c484d81f, type: 2}
+  - Tro5: {fileID: 1601391744600586, guid: 9a1fd5fe774bf1d4da5790f5bac9e626, type: 2}
+  - Tro6: {fileID: 1918286963650010, guid: f31f3f74adb57e7448dbf21559adf361, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

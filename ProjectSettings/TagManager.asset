@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Draggable
+  - MirrorCollider
+  - Protractor
+  - MirrorReceiver
+  - Laser
+  - PowerGem
+  - HandClickTutorial
+  - Fire
+  - Floor
+  - Mask
+  - MusicManager
+  - Enemy
+  - Bullet
+  - UICamera
+  - GoButton
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - PowerGem
+  - Mirror
+  - Obstacle
+  - M1
+  - M2
+  - M3
+  - M4
+  - M5
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Background
+    uniqueID: 3050640947
+    locked: 0
+  - name: Objects
+    uniqueID: 3841911477
+    locked: 0
+  - name: Player
+    uniqueID: 1994092475
+    locked: 0
+  - name: Foreground
+    uniqueID: 631352277
+    locked: 0
+  - name: Default
+    uniqueID: 0
+    locked: 0

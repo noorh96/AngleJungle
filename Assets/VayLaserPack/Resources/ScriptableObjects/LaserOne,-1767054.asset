@@ -1,0 +1,140 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21d9a79327f225146a01ca49c695abc1, type: 3}
+  m_Name: LaserOne,-1767054
+  m_EditorClassIdentifier: 
+  t: {fileID: 0}
+  position: {x: 33.8, y: 4.6, z: -0.43}
+  rotation: {x: -0, y: -0, z: -0, w: 1}
+  laserMaterial: {fileID: 2100000, guid: 8e819adadf9e7004f9f6fd161224db94, type: 2}
+  Life: 0.26
+  MinLife: 0.28143433
+  MaxLife: 0.13443957
+  ConstantLife: 1
+  Speed: 222.3
+  MinSpeed: 154.88
+  MaxSpeed: 557.5
+  ConstantSpeed: 1
+  Size: 4.49
+  MinSize: 4.17
+  MaxSize: 4.832283
+  ConstantSize: 0
+  Intensity: 1000
+  Gravity: 0
+  Angle: -0
+  Radius: 0
+  Color: {r: 0.5890954, g: 0.13120699, b: 0.04026687, a: 0.5045677}
+  ParticleSize:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0.18047135
+      value: 6.0771284
+      inSlope: -11.357447
+      outSlope: -11.357447
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.27969176
+      value: 4.3283825
+      inSlope: -17.877884
+      outSlope: -17.877884
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.41542953
+      value: 2.33967
+      inSlope: -7.0235815
+      outSlope: -7.0235815
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.5112569
+      value: 1.9130937
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  ColorGradient:
+    key0:
+      serializedVersion: 2
+      rgba: 4281436580
+    key1:
+      serializedVersion: 2
+      rgba: 4283128777
+    key2:
+      serializedVersion: 2
+      rgba: 10415276
+    key3:
+      serializedVersion: 2
+      rgba: 0
+    key4:
+      serializedVersion: 2
+      rgba: 0
+    key5:
+      serializedVersion: 2
+      rgba: 0
+    key6:
+      serializedVersion: 2
+      rgba: 0
+    key7:
+      serializedVersion: 2
+      rgba: 0
+    ctime0: 31677
+    ctime1: 41254
+    ctime2: 60320
+    ctime3: 0
+    ctime4: 0
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_NumColorKeys: 3
+    m_NumAlphaKeys: 2
+  SizeOverLifeTime: 0
+  ColorOverLifeTime: 0
+  EnableCollision: 1
+  GenerateLaser: 1
+  GenerateLife: 0
+  GenerateSpeed: 0
+  GenerateSize: 0
+  GenerateColor: 0
+  GenerateAngle: 0
+  GenerateRadius: 0
+  GenerateIntensity: 0
+  GenerationScale: 1
+  Dampen: 0
+  LifetimeLoss: 0
+  Bounce: 0
+  LifeSlider: 0.41723144
+  SpeedSlider: 0.8966942
+  SizeSlider: 0.76859504
+  AngleSlider: 0.2892562
+  RadiusSlider: 0.18181819
+  IntensitySlider: 0.24793388
+  OnLaserParticleCollision:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: CollisionEnter, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  CollidesWith:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  LifeOptionIndex: 0
+  SpeedOptionIndex: 0
+  SizeOptionIndex: 1

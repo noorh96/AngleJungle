@@ -1,0 +1,59 @@
+Vay Laser Pack Setup/Installation 
+Pack Version v1.1
+UnityVersion 5.3.0 or higher
+
+Bug Report from previous version 
+-Fixed the issue where projects were not building properly. 
+
+
+After installation follow these steps. 
+
+Now you can either open up an "Example Scene" I have provided for you by
+
+	-Heading over to "Scene" folder and opening up "Example Scene"
+
+	After opening up the "ExampleScene" 
+	- Hit Play
+
+	Camera Controls 
+	- "W", "A", "S", "D" to move around 
+	- "ESC" to pause / enable mouse cursor
+	- "Left Shift" to raise
+	- "Left Ctrl" to lower
+
+	-From here you are free to modify your laser however you want 
+	- You can change different laser properties
+	- You can generate any type of laser you desire. 
+	- After done customizing your laser, click on " Create Laser Prefab " to make your laser a prefab
+	- Your laser prefab will be under Resources-> LaserPrefabs 
+	- Drag your laser prefab in your scene and you will have multiple lasers 
+
+
+If you decide not to use "Example Scene" and decide to use your own scene then follow these instructions 
+
+	-Create a new Empty gameobject in your scene
+	-Name it "LaserParticleManager"
+	-Attach "Laser Particle Manager" to that gameobject
+	-(Optional) Delete your Main Camera and Drag in the "GameCamera" prefab (Resource->Prefabs) for controls 
+	- Hit Play
+
+	Camera Controls 
+	- "W", "A", "S", "D" to move around 
+	- "ESC" to pause / enable mouse cursor
+	- "Left Shift" to raise
+	- "Left Ctrl" to lower
+
+	-From here you are free to modify your laser however you want 
+	- You can change different laser properties 
+	- You can generate any type of laser you desire. 
+	- After done customizing your laser, click on " Create Laser Prefab " to make your laser a prefab
+	- Your laser prefab will be under Resources-> LaserPrefabs 
+	- Drag your laser prefab in your scene and you will have multiple lasers 
+
+
+
+
+
+Hope everything went well in your setup 
+
+If you have any questions, concerns or want more updates please email me at vaystudios@gmail.com or leave a comment on www.multidevan13.weebly.com

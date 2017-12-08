@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: da0aff082b885d54e990e4543ca7f2e0
+timeCreated: 1492191753
+licenseType: Pro
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - sp_closedChest: {instanceID: 0}
+  - sp_openChest: {instanceID: 0}
+  - par_Chest: {instanceID: 0}
+  - GM: {instanceID: 0}
+  - TreasureCanvas: {fileID: 1421467072679842, guid: d229d11b946966a4db45a1a84c36e960,
+      type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
