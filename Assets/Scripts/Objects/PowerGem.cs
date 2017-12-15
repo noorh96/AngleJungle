@@ -29,7 +29,9 @@ public class PowerGem : MonoBehaviour {
 	private float countDown = -1f;
 	private float countFactor = 3f;
 	private SpriteRenderer sp;
-	// Use this for initialization
+	/// <summary>
+	/// Initialize power dots on the power gem
+	/// </summary>
 	void Start () {
 		sp = GetComponent<SpriteRenderer> ();
 		L1.SetActive (false);
@@ -73,8 +75,9 @@ public class PowerGem : MonoBehaviour {
 		StartCoroutine (CountDown());
 	}
 	
-	// Update is called once per frame
-
+	/// <summary>
+	/// Set the threshold of activited power dots needed for win
+	/// </summary>
 	void Update () {
 		if (ActivateNum == 1) {
 			if (countDown >= 4)
@@ -130,6 +133,12 @@ public class PowerGem : MonoBehaviour {
 		print (coll.gameObject.name);
 	}
 
+	/// <summary>
+	/// Set the power gem to activated mode. it 's not necessary mean you win. 
+	/// You still need to wait for the particle light to give it enough energy
+	/// particle system will call this method on collision to increase power gem energy
+	/// Can be interrupted by DeactivateGem
+	/// </summary>
 	public void ActivateGem(){
 		countDown = Mathf.Min((countDown + 1f), 4);
 		//countDown ++;
@@ -140,13 +149,18 @@ public class PowerGem : MonoBehaviour {
 		}
 	}
 		
-
+	/// <summary>
+	/// Deactivates the gem, interrupt ActivateGem()
+	/// </summary>
 	public void DeactivateGem(){
 		PowerGemParticle.SetActive (false);
 		sp.sprite = greyPG;
 		door.GetComponent<Door> ().CloseDoor();
 	}
-		
+
+	/// <summary>
+	/// Constantly count down to compensate ActivateGem()'s effect made by particles
+	/// </summary>
 	IEnumerator CountDown(){
 		while (true) {
 			yield return new WaitForSeconds (0.01f);

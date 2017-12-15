@@ -27,15 +27,15 @@ public class Treasure : MonoBehaviour {
 		//Play Ambient Sound
 		musicManager = GameObject.FindGameObjectWithTag ("MusicManager");
 		if (levelIndex <= 7) {
-			musicManager.GetComponent<MM> ().PlayS1Sound ();
+			musicManager.GetComponent<MusicManager> ().PlayS1Sound ();
 		} else if (levelIndex > 7 && levelIndex <= 13) {
-			musicManager.GetComponent<MM> ().PlayS2Sound ();
+			musicManager.GetComponent<MusicManager> ().PlayS2Sound ();
 		} else if (levelIndex > 13 && levelIndex <= 18) {
-			musicManager.GetComponent<MM> ().PlayS3Sound ();
+			musicManager.GetComponent<MusicManager> ().PlayS3Sound ();
 		} else if (levelIndex > 18 && levelIndex <= 25) {
-			musicManager.GetComponent<MM> ().PlayS4Sound ();
+			musicManager.GetComponent<MusicManager> ().PlayS4Sound ();
 		}else {
-			musicManager.GetComponent<MM> ().PlayS5Sound ();
+			musicManager.GetComponent<MusicManager> ().PlayS5Sound ();
 		}
 		if(TreasureCanvas != null)
 			TreasureCanvas.SetActive(false);
@@ -106,12 +106,12 @@ public class Treasure : MonoBehaviour {
 
 	IEnumerator CountToClearStage(){
 		yield return new WaitForSeconds (1);
-		GM.GetComponent<GM> ().StageClear ();
+		GM.GetComponent<GameManager> ().StageClear ();
 	}
 
 	IEnumerator CountToShowTreasure(){
 		yield return new WaitForSeconds (0.2f);
 		TreasureOnScreen ();
-		GM.GetComponent<GM> ().ShowTreasure ();
+		GM.GetComponent<GameManager> ().ShowTreasure ();
 	}
 }

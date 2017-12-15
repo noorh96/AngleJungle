@@ -10,7 +10,7 @@ public class Door : MonoBehaviour {
 	public GameObject DoorParticle;
 	// Use this for initialization
 	void Start () {
-		_GM.GetComponent<GM> ().door = gameObject;
+		_GM.GetComponent<GameManager> ().door = gameObject;
 		Flame.SetActive (true);
 		EyeMask.SetActive (false);
 	}
@@ -25,7 +25,7 @@ public class Door : MonoBehaviour {
 		//EyeMask.SetActive (true);
 		//DoorParticle.SetActive(true);
 		if(Global.antiCheater <= 0)
-			_GM.GetComponent<GM> ().DoorOpened ();
+			_GM.GetComponent<GameManager> ().DoorOpened ();
 	}
 
 	public void DoorOpened(){
@@ -38,7 +38,7 @@ public class Door : MonoBehaviour {
 		//Flame.SetActive (true);
 		//EyeMask.SetActive (false);
 		//DoorParticle.SetActive(false);
-		_GM.GetComponent<GM> ().DoorClosed ();
+		_GM.GetComponent<GameManager> ().DoorClosed ();
 	}
 		
 }

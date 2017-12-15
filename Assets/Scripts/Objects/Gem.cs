@@ -33,9 +33,13 @@ public class Gem : MonoBehaviour
 		PutGemInMirror ();
 	}
 	
-	// Update is called once per frame
+	/// <summary>
+	/// Update() is where the dragging system installed and managed.
+	/// </summary>
 	void Update ()
 	{
+		//TODO:[what gems they pick up]
+		//TODO:[how many taps the player spend]
 		if (Global.isPaused)
 			return;
 		Vector3 v3;
@@ -121,6 +125,9 @@ public class Gem : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Puts the gem in slot and ask mirror to auto allocate the gem
+	/// </summary>
 	public void PutGemInMirror(){
 		if (initialMirror != null) {
 			if (initialMirror.GetComponent<Mirror> ().slots + 1 > initialMirror.GetComponent<Mirror> ().maximumSlots) {
@@ -136,6 +143,9 @@ public class Gem : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// gem got released from its current slot
+	/// </summary>
 	public void ReleaseThisGem(){
 		if (onSlot && MirrorGO != null) {
 			onSlot = false;
@@ -150,6 +160,7 @@ public class Gem : MonoBehaviour
 
 	void OnTriggerEnter2D (Collider2D coll)
 	{
+		// behavior of entering mirror
 		if (coll.gameObject.tag == "MirrorCollider") {
 			collMirror = true;
 			MirrorGO = coll.gameObject;
@@ -158,10 +169,12 @@ public class Gem : MonoBehaviour
 
 	void OnTriggerStay2D (Collider2D coll)
 	{
+		// behavior of hovering on a mirror
 		if (coll.gameObject.tag == "MirrorCollider") {
 			collMirror = true;
 			MirrorGO = coll.gameObject;
 		}
+		// behavior of hovering on other gems
 		if (coll.gameObject.tag == "Draggable" && coll.gameObject.GetComponent<Gem>().onSlot) {
 			if (Vector2.Distance (coll.gameObject.transform.position, gameObject.transform.position) < 0.3f) {
 				gemToBeSwapped = coll.gameObject;
@@ -176,10 +189,12 @@ public class Gem : MonoBehaviour
 
 	void OnTriggerExit2D (Collider2D coll)
 	{
+		// behavior of exiting from mirror
 		if (coll.gameObject.tag == "MirrorCollider") {
 			collMirror = false;
 			MirrorGO = null;
 		}
+		// behavior of exiting from other gems
 		if (coll.gameObject.tag == "Draggable" && coll.gameObject.GetComponent<Gem>().onSlot) {
 			if (gemToBeSwapped = coll.gameObject) {
 				gemToBeSwapped.GetComponent<Gem> ().originalScale = gemToBeSwapped.GetComponent<Gem> ().initialScale;

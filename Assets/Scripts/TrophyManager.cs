@@ -97,9 +97,9 @@ public class TM : MonoBehaviour {
 
 		musicManager = GameObject.FindGameObjectWithTag ("MusicManager");
 		if (levelProgress <= 1) {
-			musicManager.GetComponent<MM> ().PlayCabinSound ();
+			musicManager.GetComponent<MusicManager> ().PlayCabinSound ();
 		} else {
-			musicManager.GetComponent<MM> ().PlayCabin2Sound ();
+			musicManager.GetComponent<MusicManager> ().PlayCabin2Sound ();
 		}
 
 	}
@@ -111,7 +111,7 @@ public class TM : MonoBehaviour {
 		
 
 	public void ReturnMap(){
-		musicManager.GetComponent<MM> ().PlayClickButton ();
+		musicManager.GetComponent<MusicManager> ().PlayClickButton ();
 		SceneManager.LoadScene ("StageNew");
 	}
 

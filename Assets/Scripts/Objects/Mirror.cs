@@ -61,7 +61,10 @@ public class Mirror : MonoBehaviour
 
 	private bool isProtractorOn = false;
 	private Vector3 proOriginalScale;
-	// Use this for initialization
+
+	/// <summary>
+	/// Initialize the slot system, and each slot's position on awake.
+	/// </summary>
 	void Awake ()
 	{
 		sr = GetComponent<SpriteRenderer> ();
@@ -112,7 +115,10 @@ public class Mirror : MonoBehaviour
 		protractor.transform.localScale = 0 * proOriginalScale;
 	}
 
-	// Update is called once per frame
+	/// <summary>
+	/// Core mechanism!!!
+	/// This Update() calculate the angle and parse it into laser angle in this 2D game world
+	/// </summary>
 	void Update ()
 	{
 		//shootingDirection = (Vector2)GyroRotation.transform.up;
@@ -170,6 +176,11 @@ public class Mirror : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Normalizes the angle within 360. It also works with negative angles
+	/// </summary>
+	/// <returns>The angle.</returns>
+	/// <param name="angle">Angle.</param>
 	private float normalizeAngle(float angle){
 		return (angle %= 360) >= 0 ? angle : (angle + 360);
 	}
@@ -185,6 +196,9 @@ public class Mirror : MonoBehaviour
 		return angle;
 	}
 
+	/// <summary>
+	/// Toggles the protractor for real.
+	/// </summary>
 	public void ToggleProtractor(){
 		GameObject handClickTutorial = GameObject.FindGameObjectWithTag ("HandClickTutorial");
 		if(handClickTutorial != null)
@@ -197,6 +211,11 @@ public class Mirror : MonoBehaviour
 		as_toggle.Play ();
 	}
 
+	/// <summary>
+	/// Auto allocate gems
+	/// </summary>
+	/// <returns>The position of the provided slot</returns>
+	/// <param name="go">gem gameobject</param>
 	public Vector2 ArrangePosition(GameObject go){
 		if(TutorialHand!=null)
 			TutorialHand.SetActive(false);
@@ -213,6 +232,10 @@ public class Mirror : MonoBehaviour
 
 	}
 
+	/// <summary>
+	/// Releases gem from its slot.
+	/// </summary>
+	/// <param name="go">gem got released</param>
 	public void ReleasePosition(GameObject go){
 		foreach (SlotUnit su in slotList) {
 			if (su.targetGO==go) {
@@ -223,15 +246,24 @@ public class Mirror : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Actives this receiver mirror to make it emit light.
+	/// </summary>
 	public void ActiveLight(){
 		isActivated = true;
 		countDown = 3;
 	}
 
+	/// <summary>
+	/// Deactivates this receiver mirror.
+	/// </summary>
 	public void DeactivateLight(){
 		isActivated = false;
 	}
 
+	/// <summary>
+	/// Counts down to deactivate the light on a receiver mirror.
+	/// </summary>
 	IEnumerator CountDown(){
 		while (true) {
 			yield return new WaitForSeconds (0.1f);

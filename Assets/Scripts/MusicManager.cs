@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MM : MonoBehaviour {
+public class MusicManager : MonoBehaviour {
 	public AudioSource BGM_as;
 	public AudioSource MAP_as;
 	public AudioSource CABIN_as;

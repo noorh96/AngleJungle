@@ -6,7 +6,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using System;
 
-public class GM : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
 
 	public GameObject mainCamera;
@@ -32,6 +32,7 @@ public class GM : MonoBehaviour
 	// Use this for initialization
 	void Awake ()
 	{
+		//TODO: [time to complete the level] start counting
 		isPauseMenuOn = false;
 		isLevelFinished = false;
 		StartCoroutine (AntiCheater());
@@ -64,18 +65,21 @@ public class GM : MonoBehaviour
 		}
 	}
 
-	public void ButtonDadoSoundPlay(){
-		asButton_Dado.Play ();
-	}
+//	public void ButtonDadoSoundPlay(){
+//		asButton_Dado.Play ();
+//	}
+//
+//	public void ButtonDalalaSoundPlay(){
+//		asButton_Dalala.Play ();
+//	}
+//
+//	public void ButtonDuSoundPlay(){
+//		asButton_Du.Play ();
+//	}
 
-	public void ButtonDalalaSoundPlay(){
-		asButton_Dalala.Play ();
-	}
-
-	public void ButtonDuSoundPlay(){
-		asButton_Du.Play ();
-	}
-
+	/// <summary>
+	/// Shows the pause menu.
+	/// </summary>
 	public void ShowPauseMenu ()
 	{
 		mainCamera.GetComponent<RapidBlurEffect> ().enabled = true;
@@ -85,10 +89,16 @@ public class GM : MonoBehaviour
 		isPauseMenuOn = true;
 	}
 
+	/// <summary>
+	/// All buttons clicks are using this sound
+	/// </summary>
 	public void PlayButtonClickSound(){
-		musicManager.GetComponent<MM> ().PlayClickButton ();
+		musicManager.GetComponent<MusicManager> ().PlayClickButton ();
 	}
 
+	/// <summary>
+	/// Show congrat UI when you complete this level
+	/// </summary>
 	public void ShowStageClear ()
 	{
 		music_win.Play ();
@@ -100,16 +110,26 @@ public class GM : MonoBehaviour
 
 	}
 
+	/// <summary>
+	/// Shows the treasure if this level is trophy level
+	/// </summary>
 	public void ShowTreasure(){
 		music_win.Play ();
 		StartCoroutine (GoToTreasureRoom());
 	}
 
+	/// <summary>
+	/// Gos to treasure room if this level is trophy level.
+	/// </summary>
+	/// <returns>The to treasure room.</returns>
 	IEnumerator GoToTreasureRoom(){
 		yield return new WaitForSeconds (3.6f);
 		SceneManager.LoadScene ("Treasure");
 	}
 
+	/// <summary>
+	/// We use this to prevent making angles without placement
+	/// </summary>
 	IEnumerator AntiCheater(){
 		while (true) {
 			yield return new WaitForSeconds (1);
@@ -123,6 +143,9 @@ public class GM : MonoBehaviour
 		//music_win.Play ();
 	}
 
+	/// <summary>
+	/// Hides the pause menu.
+	/// </summary>
 	public void HidePauseMenu ()
 	{
 		mainCamera.GetComponent<RapidBlurEffect> ().enabled = false;
@@ -133,9 +156,14 @@ public class GM : MonoBehaviour
 		isPauseMenuOn = false;
 	}
 
+	/// <summary>
+	/// Puzzle solved
+	/// </summary>
 	public void DoorOpened ()
 	{
 		if (!isStartToWinCalled) {
+			// when the puzzle solved, we call the coroutine to win, but it's not really the winning.
+			// it can still be interupted by DoorClosed() method.
 			countToWin = StartCoroutine (CountToWin ());
 			isStartToWinCalled = true;
 			//disable hand click tutorial
@@ -145,7 +173,9 @@ public class GM : MonoBehaviour
 		}
 	}
 		
-
+	/// <summary>
+	/// Puzzle solved status reverted, interuppt DoorOpen()
+	/// </summary>
 	public void DoorClosed ()
 	{
 		
@@ -155,33 +185,52 @@ public class GM : MonoBehaviour
 		GoButton.SetActive (false);
 	}
 
+	/// <summary>
+	/// Restart the level
+	/// </summary>
 	public void ReloadCurrentScene ()
 	{
 		Scene scene = SceneManager.GetActiveScene ();
 		SceneManager.LoadScene (scene.name);
 	}
 
+	/// <summary>
+	/// Loads the next level.
+	/// </summary>
 	public void LoadNextScene ()
 	{
 		Scene scene = SceneManager.GetActiveScene ();
 		SceneManager.LoadScene (scene.buildIndex + 1);
 	}
 
+	/// <summary>
+	/// Loads the map scene.
+	/// </summary>
 	public void LoadHomeScene ()
 	{
 		SceneManager.LoadScene ("StageNew");
 	}
 
+	/// <summary>
+	/// Loads the trophy room scene.
+	/// </summary>
 	public void LoadTreasureScene ()
 	{
 		SceneManager.LoadScene ("Treasure");
 	}
 
+	/// <summary>
+	/// Show congrat UI when you complete this level
+	/// </summary>
 	public void StageClear ()
 	{
 		ShowStageClear ();
 	}
 
+	/// <summary>
+	/// Real winning
+	/// The little character started walking towards the chest box
+	/// </summary>
 	void Win ()
 	{
 		GoButton.SetActive (false);
@@ -192,6 +241,10 @@ public class GM : MonoBehaviour
 		Player.GetComponent<Player> ().Win ();
 	}
 
+	/// <summary>
+	/// Counts to Win().
+	/// </summary>
+	/// <returns>The to window.</returns>
 	IEnumerator CountToWin ()
 	{
 		yield return new WaitForSeconds (2.4f);
@@ -201,9 +254,13 @@ public class GM : MonoBehaviour
 		isLevelFinished = true;
 		door.GetComponent<Door> ().DoorOpened ();
 		Player.GetComponent<Player> ().FeelHappy ();
+		//TODO: [time to complete the level] end counting
 	}
 
-	public void ToggleProtractor(){
+	/// <summary>
+	/// Toggle on all protractors
+	/// </summary>
+	public void ToggleAllProtractors(){
 		if (isProtractorOn) {
 			foreach (GameObject pro in protractors) {
 				pro.SetActive (false);
@@ -216,6 +273,9 @@ public class GM : MonoBehaviour
 		isProtractorOn = !isProtractorOn;
 	}
 
+	/// <summary>
+	/// Used for debugging, cheat buttons
+	/// </summary>
 	void OnGUI ()
 	{
 //		if (GUI.Button (new Rect (10, 10, 70, 70), "Reload")) {

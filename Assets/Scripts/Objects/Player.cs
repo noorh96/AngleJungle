@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿/// <summary>
+/// Manage animations and sounds of the little character
+/// </summary>
+using UnityEngine;
 using System.Collections;
 
 public class Player : MonoBehaviour {
@@ -23,7 +26,10 @@ public class Player : MonoBehaviour {
 	enum ChaStatus{
 		Idle, Cel, Walk, Get
 	};
-	// Update is called once per frame
+
+	/// <summary>
+	/// Defined animations for the character
+	/// </summary>
 	void Update () {
 		if (status == ChaStatus.Walk) {
 			animator.SetBool ("Walk", true);
@@ -50,49 +56,28 @@ public class Player : MonoBehaviour {
 		} else {
 			Camera.main.gameObject.GetComponent<CameraMovement> ().isMovingLeft = false;
 		}
-
-
-//		if (false) {
-//			
-//			if (Input.touchCount > 0 && (Input.GetTouch (0).phase == TouchPhase.Began || Input.GetTouch (0).phase == TouchPhase.Moved)) {
-//				RaycastHit2D hit = Physics2D.Raycast (Camera.main.ScreenToWorldPoint (Input.GetTouch (0).position), Vector2.zero);
-//				//Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
-//
-//				if (hit)
-//				if (hit.collider != null && !Global.isDragging && hit.collider.tag == "Floor") {
-//					targetPosition = hit.point;
-//					isWalking = true;
-//				}
-//
-//			}
-//
-//			if (isWalking) {
-//				transform.position = Vector3.Lerp (transform.position, targetPosition, Time.deltaTime);
-//				if (((Vector2)transform.position - targetPosition).magnitude < 0.1f) {
-//					isWalking = false;
-//				}
-//			}
-//
-//			if (transform.position.x < SwitchPoint.position.x) {
-//				Camera.main.gameObject.GetComponent<CameraMovement> ().isMovingLeft = true;
-//			} else {
-//				Camera.main.gameObject.GetComponent<CameraMovement> ().isMovingLeft = false;
-//			}
-//		}
 	}
 
+	/// <summary>
+	/// Change animation status when the go button tapped
+	/// </summary>
 	public void Win(){
 		status = ChaStatus.Walk;
 		walking_as.Stop ();
 		walking_as.Play ();
 	}
 		
-
+	/// <summary>
+	/// Change animation status when the character touch the chest box
+	/// </summary>
 	public void Get(){
 		status = ChaStatus.Get;
 		walking_as.Stop ();
 	}
 
+	/// <summary>
+	/// Change animation status when  the go button apeears
+	/// </summary>
 	public void FeelHappy(){
 		status = ChaStatus.Cel;
 		walking_as.Stop ();

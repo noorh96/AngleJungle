@@ -20,7 +20,7 @@ public class StartManager : MonoBehaviour {
 	void Start () {
 		showLoading = false;
 		musicManager = GameObject.FindGameObjectWithTag ("MusicManager");
-		musicManager.GetComponent<MM> ().PlayBGM ();
+		musicManager.GetComponent<MusicManager> ().PlayBGM ();
 	}
 	
 	// Update is called once per frame
@@ -99,7 +99,7 @@ public class StartManager : MonoBehaviour {
     }
 
     public void LoadStage(){
-		musicManager.GetComponent<MM> ().PlayMenuButton ();
+		musicManager.GetComponent<MusicManager> ().PlayMenuButton ();
 		//reset everything
 		if (SaveLoad.data.LevelProgress < 1) {
 			SaveLoad.data.LevelProgress = 1;
@@ -121,34 +121,34 @@ public class StartManager : MonoBehaviour {
     public void HideInfo()
     {
         InfoCanvas.SetActive(false);
-		musicManager.GetComponent<MM> ().PlayClickButton ();
+		musicManager.GetComponent<MusicManager> ().PlayClickButton ();
     }
     public void ShowInfo()
     {
         InfoCanvas.SetActive(true);
-		musicManager.GetComponent<MM> ().PlayMenuButton ();
+		musicManager.GetComponent<MusicManager> ().PlayMenuButton ();
     }
 
     public void ShowReset()
     {
         ResetCanvas.SetActive(true);
-		musicManager.GetComponent<MM> ().PlayMenuButton ();
+		musicManager.GetComponent<MusicManager> ().PlayMenuButton ();
     }
     public void HideReset()
     {
         ResetCanvas.SetActive(false);
-		musicManager.GetComponent<MM> ().PlayClickButton ();
+		musicManager.GetComponent<MusicManager> ().PlayClickButton ();
     }
     private void ShowResetConfirm()
     {
         ResetCanvas.SetActive(false);
         ResetConfirmCanvas.SetActive(true);
-		musicManager.GetComponent<MM> ().PlayClickButton ();
+		musicManager.GetComponent<MusicManager> ().PlayClickButton ();
     }
     public void HideResetConfirm()
     {
         ResetConfirmCanvas.SetActive(false);
-		musicManager.GetComponent<MM> ().PlayClickButton ();
+		musicManager.GetComponent<MusicManager> ().PlayClickButton ();
     }
 		
 }

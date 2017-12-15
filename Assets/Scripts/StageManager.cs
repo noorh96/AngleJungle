@@ -17,7 +17,7 @@ public class StageManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		musicManager = GameObject.FindGameObjectWithTag ("MusicManager");
-		musicManager.GetComponent<MM> ().PlayMAPSound ();
+		musicManager.GetComponent<MusicManager> ().PlayMAPSound ();
 		showLoading = false;
 		SaveLoad.Load ();
 		currentLevelProgress = SaveLoad.data.LevelProgress;
@@ -37,16 +37,16 @@ public class StageManager : MonoBehaviour {
 
 	public void LoadStage(string stageName)
 	{
-		musicManager.GetComponent<MM> ().PlayClickButton ();
+		musicManager.GetComponent<MusicManager> ().PlayClickButton ();
 		StartCoroutine (LoadStageCo(stageName));
 	}
 	public void LoadStart(){
-		musicManager.GetComponent<MM> ().PlayClickButton ();
+		musicManager.GetComponent<MusicManager> ().PlayClickButton ();
 		SceneManager.LoadScene ("Start");
 	}
 
     public void LoadTreasure() {
-		musicManager.GetComponent<MM> ().PlayCreakClickButton ();
+		musicManager.GetComponent<MusicManager> ().PlayCreakClickButton ();
         SceneManager.LoadScene("Treasure");
     }
 
