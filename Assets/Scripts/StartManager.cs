@@ -19,7 +19,7 @@ public class StartManager : MonoBehaviour {
     }
 	void Start () {
 		showLoading = false;
-		musicManager = GameObject.FindGameObjectWithTag ("MusicManager");
+		musicManager = GameObject.FindGameObjectWithTag (Global.TAG_MUSIC_MANAGER);
 		musicManager.GetComponent<MusicManager> ().PlayBGM ();
 	}
 	

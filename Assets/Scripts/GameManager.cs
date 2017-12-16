@@ -8,27 +8,32 @@ using System;
 
 public class GameManager : MonoBehaviour
 {
-
 	public GameObject mainCamera;
 	public GameObject canvasInGame;
 	public GameObject canvasPause;
 	public GameObject canvasStageClear;
 	public GameObject Player;
 	public GameObject GoButton;
+	public GameObject door;
+
+	private GameObject musicManager;
+
+	private GameObject[] protractors;
+
 	public AudioSource asButton_Dado;
 	public AudioSource asButton_Dalala;
 	public AudioSource asButton_Du;
 	public AudioSource goButton_as;
 	public AudioSource music_win;
 	public AudioSource complete_level;
-	public GameObject door;
+
 	private Coroutine countToWin;
+
 	private bool isStartToWinCalled = false;
-	private GameObject[] protractors;
 	private bool isProtractorOn = false;
-	private GameObject musicManager;
 	private bool isPauseMenuOn = false;
 	bool isLevelFinished = false;
+
 	// Use this for initialization
 	void Awake ()
 	{
@@ -45,19 +50,25 @@ public class GameManager : MonoBehaviour
 		GoButton.SetActive (false);
 		Global.isDragging = false;
 		Global.isPaused = false;
-		protractors = GameObject.FindGameObjectsWithTag ("Protractor");
-		foreach (GameObject pro in protractors) {
+		protractors = GameObject.FindGameObjectsWithTag (Global.TAG_PROTRACTOR);
+
+		foreach (GameObject pro in protractors) 
+		{
 			//pro.SetActive (false);
 		}
-		musicManager = GameObject.FindGameObjectWithTag ("MusicManager");
+
+		musicManager = GameObject.FindGameObjectWithTag (Global.TAG_MUSIC_MANAGER);
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
-		if (Input.touchCount > 0 && (Input.GetTouch (0).phase == TouchPhase.Began || Input.GetTouch (0).phase == TouchPhase.Moved)) {
+		if (Input.touchCount > 0 && (Input.GetTouch (0).phase == TouchPhase.Began || Input.GetTouch (0).phase == TouchPhase.Moved)) 
+		{
 			RaycastHit2D hit = Physics2D.Raycast (Camera.main.ScreenToWorldPoint (Input.GetTouch (0).position), Vector2.zero);
-			if (hit && hit.collider != null && hit.collider.tag == "GoButton" && !isPauseMenuOn) {
+
+			if (hit && hit.collider != null && hit.collider.tag == Global.TAG_GO_BUTTON && !isPauseMenuOn) 
+			{
 				goButton_as.Play ();
 				Win ();
 			}
@@ -92,7 +103,8 @@ public class GameManager : MonoBehaviour
 	/// <summary>
 	/// All buttons clicks are using this sound
 	/// </summary>
-	public void PlayButtonClickSound(){
+	public void PlayButtonClickSound()
+	{
 		musicManager.GetComponent<MusicManager> ().PlayClickButton ();
 	}
 
@@ -107,13 +119,13 @@ public class GameManager : MonoBehaviour
 		canvasInGame.SetActive (false);
 		canvasPause.SetActive (false);
 		Global.isPaused = true;
-
 	}
 
 	/// <summary>
 	/// Shows the treasure if this level is trophy level
 	/// </summary>
-	public void ShowTreasure(){
+	public void ShowTreasure()
+	{
 		music_win.Play ();
 		StartCoroutine (GoToTreasureRoom());
 	}
@@ -122,24 +134,29 @@ public class GameManager : MonoBehaviour
 	/// Gos to treasure room if this level is trophy level.
 	/// </summary>
 	/// <returns>The to treasure room.</returns>
-	IEnumerator GoToTreasureRoom(){
+	IEnumerator GoToTreasureRoom()
+	{
 		yield return new WaitForSeconds (3.6f);
-		SceneManager.LoadScene ("Treasure");
+		SceneManager.LoadScene (Global.SCENE_TREASURE);
 	}
 
 	/// <summary>
 	/// We use this to prevent making angles without placement
 	/// </summary>
-	IEnumerator AntiCheater(){
-		while (true) {
+	IEnumerator AntiCheater()
+	{
+		while (true) 
+		{
 			yield return new WaitForSeconds (1);
-			if (Global.antiCheater > 0) {
+			if (Global.antiCheater > 0) 
+			{
 				Global.antiCheater--;
 			}
 		}
 	}
 
-	public void SwitchBgmToWin(){
+	public void SwitchBgmToWin()
+	{
 		//music_win.Play ();
 	}
 
@@ -161,13 +178,15 @@ public class GameManager : MonoBehaviour
 	/// </summary>
 	public void DoorOpened ()
 	{
-		if (!isStartToWinCalled) {
+		if (!isStartToWinCalled) 
+		{
 			// when the puzzle solved, we call the coroutine to win, but it's not really the winning.
 			// it can still be interupted by DoorClosed() method.
 			countToWin = StartCoroutine (CountToWin ());
 			isStartToWinCalled = true;
 			//disable hand click tutorial
-			GameObject handClickTutorial = GameObject.FindGameObjectWithTag ("HandClickTutorial");
+			GameObject handClickTutorial = GameObject.FindGameObjectWithTag (Global.TAG_HAND_TUTORIAL);
+
 			if(handClickTutorial != null)
 				handClickTutorial.SetActive (false);
 		}
@@ -206,9 +225,9 @@ public class GameManager : MonoBehaviour
 	/// <summary>
 	/// Loads the map scene.
 	/// </summary>
-	public void LoadHomeScene ()
+	public void LoadMapScene ()
 	{
-		SceneManager.LoadScene ("StageNew");
+		SceneManager.LoadScene (Global.SCENE_MAP);
 	}
 
 	/// <summary>
@@ -216,7 +235,7 @@ public class GameManager : MonoBehaviour
 	/// </summary>
 	public void LoadTreasureScene ()
 	{
-		SceneManager.LoadScene ("Treasure");
+		SceneManager.LoadScene (Global.SCENE_TREASURE);
 	}
 
 	/// <summary>
@@ -238,7 +257,7 @@ public class GameManager : MonoBehaviour
 		canvasPause.SetActive (false);
 		mainCamera.GetComponent<RapidBlurEffect> ().enabled = false;
 		Global.isPaused = true;
-		Player.GetComponent<Player> ().Win ();
+		Player.GetComponent<Player>().Win ();
 	}
 
 	/// <summary>
