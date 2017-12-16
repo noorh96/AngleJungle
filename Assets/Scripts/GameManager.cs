@@ -260,16 +260,23 @@ public class GameManager : MonoBehaviour
 	/// <summary>
 	/// Toggle on all protractors
 	/// </summary>
-	public void ToggleAllProtractors(){
-		if (isProtractorOn) {
-			foreach (GameObject pro in protractors) {
+	public void ToggleAllProtractors()
+	{
+		if (isProtractorOn) 
+		{
+			foreach (GameObject pro in protractors) 
+			{
 				pro.SetActive (false);
 			}
-		} else {
-			foreach (GameObject pro in protractors) {
+		} 
+		else 
+		{
+			foreach (GameObject pro in protractors) 
+			{
 				pro.SetActive (true);
 			}
 		}
+
 		isProtractorOn = !isProtractorOn;
 	}
 
@@ -303,7 +310,4 @@ public class GameManager : MonoBehaviour
 //			ToggleProtractor ();
 //		}
 	}
-
-
-
 }

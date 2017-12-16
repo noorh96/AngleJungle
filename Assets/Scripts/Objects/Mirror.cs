@@ -5,11 +5,14 @@ using UnityEngine.UI;
 using Vectrosity;
 using Picker;
 
-class SlotUnit{
+class SlotUnit
+{
 	public bool isSlotEmpty;
 	public Vector2 position;
 	public GameObject targetGO;
-	public SlotUnit(bool _isSlotEmpty, Vector2 _position){
+
+	public SlotUnit(bool _isSlotEmpty, Vector2 _position)
+	{
 		isSlotEmpty = _isSlotEmpty;
 		position = _position;
 	}
@@ -18,7 +21,6 @@ class SlotUnit{
 
 public class Mirror : MonoBehaviour
 {
-
 	public GameObject sectorImage;
 	public int pickerNumber = 0;
 	public int maximumSlots=1;
@@ -38,7 +40,6 @@ public class Mirror : MonoBehaviour
 	public Sprite redMirror1;
 	public Sprite redMirror2;
 	public Sprite redMirror3;
-
 
 	public GameObject protractor;
 	public AudioSource as_toggle;
@@ -68,18 +69,22 @@ public class Mirror : MonoBehaviour
 	void Awake ()
 	{
 		sr = GetComponent<SpriteRenderer> ();
-		if (!isReceiver) {
+
+		if (!isReceiver) 
+		{
 			isActivated = true;
-		} else {
+		} 
+		else 
+		{
 			isActivated = false;
 			StartCoroutine (CountDown());
 		}
-
-
+			
 		Vector2 slotBasePosition = (Vector2)transform.position + new Vector2 (0,-0.48f);
 
 		CentralPoint = transform.position;
 		slotList = new List<SlotUnit> (maximumSlots);
+
 		switch (maximumSlots) {
 		case 1:
 			slotList.Clear ();
@@ -103,14 +108,19 @@ public class Mirror : MonoBehaviour
 			redMirrorSp = redMirror3;
 			break;
 		}
-		if (!isActivated) {
+
+		if (!isActivated) 
+		{
 			line.SetActive (false);
 			sectorImage.SetActive (false);
 			Angle_Text.gameObject.SetActive (false);
 			sr.sprite = greyMirrorSp;
-		} else {
+		} 
+		else 
+		{
 			sr.sprite = redMirrorSp;
 		}
+
 		proOriginalScale = protractor.transform.localScale;
 		protractor.transform.localScale = 0 * proOriginalScale;
 	}
@@ -125,25 +135,32 @@ public class Mirror : MonoBehaviour
 		if (Global.isPaused)
 			return;
 
-		if (!isActivated) {
+		if (!isActivated) 
+		{
 			line.SetActive (false);
 			sectorImage.SetActive (false);
 			Angle_Text.gameObject.SetActive (false);
 			sr.sprite = greyMirrorSp;
-		} else {
+		} 
+		else 
+		{
 			line.SetActive (true);
 			sectorImage.SetActive (true);
 			Angle_Text.gameObject.SetActive (true);
 			sr.sprite = redMirrorSp;
 		}
+
 		Vector2 vect2_tmp = new Vector2 (1, 0); // for text
 		Vector2 vect2_angle = new Vector2 (1, 0); // for angle
 		curLerpTime += Time.deltaTime;
 		float perc = curLerpTime / lerpTime;
+
 		//perc = 1f - Mathf.Cos (perc * Mathf.PI * 0.5f);
-		if (perc > 0.14f) {
+		if (perc > 0.14f) 
+		{
 			perc = 1f;
 		}
+
 		degreeNumber = Mathf.Lerp (degreeNumber, pickerNumber, perc);//only time interpolates angles
 
 		vect2_tmp = Quaternion.AngleAxis (showNumber / 2, Vector3.forward) * vect2_tmp;
@@ -153,25 +170,37 @@ public class Mirror : MonoBehaviour
 
 		line.transform.rotation = Quaternion.LookRotation (vect2_angle);
 
-		if (Angle_Text) {
+		if (Angle_Text) 
+		{
 			showNumber = normalizeAngle(degreeNumber);
 			Angle_Text.text = Mathf.RoundToInt(showNumber).ToString ()+"°";
 			Angle_Text.gameObject.transform.localPosition = vect2_tmp * 100f;
 		}
+
+		// Handle touch on mirror
 		Touch touch;
-		if (Input.touchCount > 0) {
+		if (Input.touchCount > 0) 
+		{
 			touch = Input.touches [0];
-			if (touch.phase == TouchPhase.Began) {
+
+			if (touch.phase == TouchPhase.Began) 
+			{
 				RaycastHit2D hit = Physics2D.Raycast (Camera.main.ScreenToWorldPoint (touch.position), Vector2.zero);
-				if (hit && (hit.collider.gameObject == toggleCollider)) {
+
+				// If touched open the protractor
+				if (hit && (hit.collider.gameObject == toggleCollider)) 
+				{
 					ToggleProtractor ();
 				}
 			}
 		}
 
-		if (isProtractorOn) {
+		if (isProtractorOn) 
+		{
 			protractor.transform.localScale = Vector3.Lerp (protractor.transform.localScale, proOriginalScale, Time.deltaTime * 10);
-		} else {
+		} 
+		else 
+		{
 			protractor.transform.localScale = Vector3.Lerp (protractor.transform.localScale, proOriginalScale * 0, Time.deltaTime * 10);
 		}
 	}
@@ -181,13 +210,15 @@ public class Mirror : MonoBehaviour
 	/// </summary>
 	/// <returns>The angle.</returns>
 	/// <param name="angle">Angle.</param>
-	private float normalizeAngle(float angle){
+	private float normalizeAngle(float angle)
+	{
 		return (angle %= 360) >= 0 ? angle : (angle + 360);
 	}
 
 	float angle_360 (Vector2 from_, Vector2 to_)
 	{
 		float angle = Vector2.Angle (from_, to_);
+
 		if (angle > 0) {
 
 		} else {
@@ -199,14 +230,17 @@ public class Mirror : MonoBehaviour
 	/// <summary>
 	/// Toggles the protractor for real.
 	/// </summary>
-	public void ToggleProtractor(){
+	public void ToggleProtractor()
+	{
 		GameObject handClickTutorial = GameObject.FindGameObjectWithTag ("HandClickTutorial");
+
 		if(handClickTutorial != null)
 			handClickTutorial.SetActive (false);
 		if (isProActivated)
 			isProtractorOn = false;
 		else
 			isProtractorOn = true;
+
 		isProActivated = !isProActivated;
 		as_toggle.Play ();
 	}
@@ -216,11 +250,15 @@ public class Mirror : MonoBehaviour
 	/// </summary>
 	/// <returns>The position of the provided slot</returns>
 	/// <param name="go">gem gameobject</param>
-	public Vector2 ArrangePosition(GameObject go){
+	public Vector2 ArrangePosition(GameObject go)
+	{
 		if(TutorialHand!=null)
 			TutorialHand.SetActive(false);
-		foreach (SlotUnit su in slotList) {
-			if (su.isSlotEmpty) {
+		
+		foreach (SlotUnit su in slotList) 
+		{
+			if (su.isSlotEmpty) 
+			{
 				curLerpTime = 0.0f;
 				as_putIn.Play ();
 				su.targetGO = go;
@@ -228,17 +266,20 @@ public class Mirror : MonoBehaviour
 				return su.position;
 			}
 		}
-		return Vector2.zero;
 
+		return Vector2.zero;
 	}
 
 	/// <summary>
 	/// Releases gem from its slot.
 	/// </summary>
 	/// <param name="go">gem got released</param>
-	public void ReleasePosition(GameObject go){
-		foreach (SlotUnit su in slotList) {
-			if (su.targetGO==go) {
+	public void ReleasePosition(GameObject go)
+	{
+		foreach (SlotUnit su in slotList)
+		{
+			if (su.targetGO==go)
+			{
 				curLerpTime = 0.0f;
 				su.targetGO = null;
 				su.isSlotEmpty = true;
@@ -249,7 +290,8 @@ public class Mirror : MonoBehaviour
 	/// <summary>
 	/// Actives this receiver mirror to make it emit light.
 	/// </summary>
-	public void ActiveLight(){
+	public void ActiveLight()
+	{
 		isActivated = true;
 		countDown = 3;
 	}
@@ -257,22 +299,25 @@ public class Mirror : MonoBehaviour
 	/// <summary>
 	/// Deactivates this receiver mirror.
 	/// </summary>
-	public void DeactivateLight(){
+	public void DeactivateLight()
+	{
 		isActivated = false;
 	}
 
 	/// <summary>
 	/// Counts down to deactivate the light on a receiver mirror.
 	/// </summary>
-	IEnumerator CountDown(){
-		while (true) {
+	IEnumerator CountDown()
+	{
+		while (true) 
+		{
 			yield return new WaitForSeconds (0.1f);
 			countDown--;
-			if (countDown <= 0) {
+
+			if (countDown <= 0) 
+			{
 				DeactivateLight ();
 			}
 		}
 	}
-
-
 }

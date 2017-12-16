@@ -25,7 +25,7 @@ public class Gem : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		layerMask = ~ (1 << LayerMask.NameToLayer("PowerGem"));
+		layerMask = ~ (1 << LayerMask.NameToLayer(Global.LAYER_POWER_GEM));
 		initialScale = transform.localScale;
 		originalPos = transform.position;
 		originalScale = transform.localScale;
@@ -42,30 +42,40 @@ public class Gem : MonoBehaviour
 		//TODO:[how many taps the player spend]
 		if (Global.isPaused)
 			return;
-		Vector3 v3;
+
+		Vector3 v3, pos;
 		Touch touch;
-		Vector3 pos;
-		if (Input.touchCount <= 0) {
+
+		// No touch happening
+		if (Input.touchCount <= 0) 
+		{
 			dragging = false; 
 			Global.isDragging = false;
 			OnSelectPar.SetActive (false);
-		} else {
+		} 
+		else 
+		{
 			touch = Input.touches [0];
 			pos = touch.position;
-			if (touch.phase == TouchPhase.Began) {
 
+			if (touch.phase == TouchPhase.Began) 
+			{
 				RaycastHit2D hit = Physics2D.Raycast (Camera.main.ScreenToWorldPoint (touch.position), Vector2.zero, Mathf.Infinity, layerMask);
-				if (hit && (hit.collider.gameObject == gameObject)) {
+
+				if (hit && (hit.collider.gameObject == gameObject)) 
+				{
 //					if (Global.isDragging == false)
 //						as_PickGem.Play ();
 					
-					if (onSlot && MirrorGO != null) {
+					if (onSlot && MirrorGO != null) 
+					{
 						onSlot = false;
 						MirrorGO.GetComponent<Mirror> ().slots--;
 						MirrorGO.GetComponent<Mirror> ().pickerNumber -= gemAngle;
 						MirrorGO.GetComponent<Mirror> ().ReleasePosition (gameObject);
 						Global.antiCheater = 2;
 					}
+
 					toDrag = hit.transform;
 					dist = hit.transform.position.z - Camera.main.transform.position.z;
 					v3 = new Vector3 (pos.x, pos.y, dist);
@@ -76,22 +86,33 @@ public class Gem : MonoBehaviour
 					OnSelectPar.SetActive (true);
 				}
 			}
-			if (dragging && touch.phase == TouchPhase.Moved) {
+
+			if (dragging && touch.phase == TouchPhase.Moved) 
+			{
 				v3 = new Vector3 (Input.mousePosition.x, Input.mousePosition.y, dist);
 				v3 = Camera.main.ScreenToWorldPoint (v3);
 				toDrag.position = v3 + offset;
 			}
-			if (dragging && (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)) {
+
+			if (dragging && (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)) 
+			{
 				dragging = false;
 				Global.isDragging = false;
 				OnSelectPar.SetActive (false);
-				if (gemToBeSwapped != null) {
+
+				if (gemToBeSwapped != null) 
+				{
 					gemToBeSwapped.GetComponent<Gem>().ReleaseThisGem ();
 				}
-				if (collMirror && MirrorGO != null) {
-					if (MirrorGO.GetComponent<Mirror> ().slots + 1 > MirrorGO.GetComponent<Mirror> ().maximumSlots) {
+
+				if (collMirror && MirrorGO != null) 
+				{
+					if (MirrorGO.GetComponent<Mirror> ().slots + 1 > MirrorGO.GetComponent<Mirror> ().maximumSlots) 
+					{
 						onSlot = false;
-					} else {
+					} 
+					else 
+					{
 						MirrorGO.GetComponent<Mirror> ().slots++;
 						onSlot = true;
 						//fetch the position of gem
@@ -104,23 +125,32 @@ public class Gem : MonoBehaviour
 			}
 		}
 
-		if (onSlot) {
+		if (onSlot) 
+		{
 			transform.position = new Vector3 (slotPosition.x, slotPosition.y, transform.position.z);
 			transform.localScale = originalScale / 1.6f;
-		} else {
+		} 
+		else 
+		{
 			transform.localScale = originalScale;
-			if (!dragging) {
+
+			if (!dragging) 
+			{
 				//gem limitation
 				//transform.position = Vector3.Lerp (transform.position, originalPos, Time.deltaTime);
 				//transform.position = new Vector3(0,0,-1f);
 				transform.position = new Vector3(Mathf.Clamp(transform.position.x, -6.24f, 6.24f), Mathf.Clamp(transform.position.y, -3.4f, 5.4f), transform.position.z);
 			}
+
 			originalScale = initialScale;
 		}
 
-		if (dragging) {
+		if (dragging) 
+		{
 			GetComponent<SpriteRenderer> ().sortingOrder = 11;
-		} else {
+		} 
+		else 
+		{
 			GetComponent<SpriteRenderer> ().sortingOrder = 10;
 		}
 	}
@@ -128,17 +158,21 @@ public class Gem : MonoBehaviour
 	/// <summary>
 	/// Puts the gem in slot and ask mirror to auto allocate the gem
 	/// </summary>
-	public void PutGemInMirror(){
-		if (initialMirror != null) {
-			if (initialMirror.GetComponent<Mirror> ().slots + 1 > initialMirror.GetComponent<Mirror> ().maximumSlots) {
+	public void PutGemInMirror()
+	{
+		if (initialMirror != null) 
+		{
+			if (initialMirror.GetComponent<Mirror> ().slots + 1 > initialMirror.GetComponent<Mirror> ().maximumSlots) 
+			{
 				onSlot = false;
-			} else {
+			} 
+			else 
+			{
 				initialMirror.GetComponent<Mirror> ().slots++;
 				onSlot = true;
 				//fetch the position of gem
 				slotPosition = initialMirror.GetComponent<Mirror> ().ArrangePosition (gameObject);
 				initialMirror.GetComponent<Mirror> ().pickerNumber += gemAngle;
-
 			}
 		}
 	}
@@ -146,13 +180,17 @@ public class Gem : MonoBehaviour
 	/// <summary>
 	/// gem got released from its current slot
 	/// </summary>
-	public void ReleaseThisGem(){
-		if (onSlot && MirrorGO != null) {
+	public void ReleaseThisGem()
+	{
+		if (onSlot && MirrorGO != null) 
+		{
 			onSlot = false;
 			MirrorGO.GetComponent<Mirror> ().slots--;
 			MirrorGO.GetComponent<Mirror> ().pickerNumber -= gemAngle;
 			MirrorGO.GetComponent<Mirror> ().ReleasePosition (gameObject);
-			if (!dragging) {
+
+			if (!dragging) 
+			{
 				transform.position += new Vector3 (0f, -1f, 0f);
 			}
 		}
@@ -161,7 +199,8 @@ public class Gem : MonoBehaviour
 	void OnTriggerEnter2D (Collider2D coll)
 	{
 		// behavior of entering mirror
-		if (coll.gameObject.tag == "MirrorCollider") {
+		if (coll.gameObject.tag == Global.TAG_MIRROR_COLLIDER) 
+		{
 			collMirror = true;
 			MirrorGO = coll.gameObject;
 		}
@@ -170,17 +209,22 @@ public class Gem : MonoBehaviour
 	void OnTriggerStay2D (Collider2D coll)
 	{
 		// behavior of hovering on a mirror
-		if (coll.gameObject.tag == "MirrorCollider") {
+		if (coll.gameObject.tag == Global.TAG_MIRROR_COLLIDER) 
+		{
 			collMirror = true;
 			MirrorGO = coll.gameObject;
 		}
 		// behavior of hovering on other gems
-		if (coll.gameObject.tag == "Draggable" && coll.gameObject.GetComponent<Gem>().onSlot) {
-			if (Vector2.Distance (coll.gameObject.transform.position, gameObject.transform.position) < 0.3f) {
+		if (coll.gameObject.tag == Global.TAG_DRAGGABLE && coll.gameObject.GetComponent<Gem>().onSlot) 
+		{
+			if (Vector2.Distance (coll.gameObject.transform.position, gameObject.transform.position) < 0.3f) 
+			{
 				gemToBeSwapped = coll.gameObject;
 				gemToBeSwapped.GetComponent<Gem>().originalScale = gemToBeSwapped.GetComponent<Gem>().initialScale * 1.6f;
 			}
-			if (gemToBeSwapped == coll.gameObject && Vector2.Distance (coll.gameObject.transform.position, gameObject.transform.position) >= 0.3f) {
+
+			if (gemToBeSwapped == coll.gameObject && Vector2.Distance (coll.gameObject.transform.position, gameObject.transform.position) >= 0.3f) 
+			{
 				gemToBeSwapped.GetComponent<Gem> ().originalScale = gemToBeSwapped.GetComponent<Gem> ().initialScale;
 				gemToBeSwapped = null;
 			}
@@ -190,13 +234,16 @@ public class Gem : MonoBehaviour
 	void OnTriggerExit2D (Collider2D coll)
 	{
 		// behavior of exiting from mirror
-		if (coll.gameObject.tag == "MirrorCollider") {
+		if (coll.gameObject.tag == Global.TAG_MIRROR_COLLIDER)
+		{
 			collMirror = false;
 			MirrorGO = null;
 		}
 		// behavior of exiting from other gems
-		if (coll.gameObject.tag == "Draggable" && coll.gameObject.GetComponent<Gem>().onSlot) {
-			if (gemToBeSwapped = coll.gameObject) {
+		if (coll.gameObject.tag == Global.TAG_DRAGGABLE && coll.gameObject.GetComponent<Gem>().onSlot) 
+		{
+			if (gemToBeSwapped = coll.gameObject) 
+			{
 				gemToBeSwapped.GetComponent<Gem> ().originalScale = gemToBeSwapped.GetComponent<Gem> ().initialScale;
 				gemToBeSwapped = null;
 			}
