@@ -4,24 +4,41 @@ using UnityEngine;
 
 public class Gem : MonoBehaviour
 {
-
-	public GameObject MirrorGO;
-	public int gemAngle = 45;
-	public GameObject OnSelectPar;
-	public AudioSource as_PickGem;
-	public GameObject initialMirror;
-	private Vector3 originalPos;
-	private bool dragging = false;
-	private Transform toDrag;
-	private float dist;
-	private Vector3 offset;
-	private bool collMirror = false;
-	public bool onSlot = false;
-	private Vector2 slotPosition;
-	public Vector3 initialScale;
-	public Vector3 originalScale;
-	public GameObject gemToBeSwapped;
+	// Ints
 	private int layerMask;
+
+	public int gemAngle = 45;
+
+	// Audiosources
+	public AudioSource as_PickGem;
+
+	// Game objects
+	public GameObject initialMirror;
+	public GameObject gemToBeSwapped;
+	public GameObject OnSelectPar;
+	public GameObject MirrorGO;
+
+	// Vectors
+	private Vector2 slotPosition;
+
+	private Vector3 originalPos;
+	private Vector3 offset;
+
+	public Vector3 initialScale, originalScale;
+
+	// Bools
+	private bool dragging = false;
+	private bool collMirror = false;
+	private bool isMouse = false;
+
+	public bool onSlot = false;
+
+	// Tranforrms
+	private Transform toDrag;
+
+	// Floats
+	private float dist;
+
 	// Use this for initialization
 	void Start ()
 	{
@@ -53,15 +70,18 @@ public class Gem : MonoBehaviour
 			Global.isDragging = false;
 			OnSelectPar.SetActive (false);
 		} 
+		// Something is being touched
 		else 
 		{
 			touch = Input.touches [0];
 			pos = touch.position;
 
+			// Handling case of input touch begins
 			if (touch.phase == TouchPhase.Began) 
 			{
 				RaycastHit2D hit = Physics2D.Raycast (Camera.main.ScreenToWorldPoint (touch.position), Vector2.zero, Mathf.Infinity, layerMask);
 
+				// Handle collisions between raycast and gameobjects
 				if (hit && (hit.collider.gameObject == gameObject)) 
 				{
 //					if (Global.isDragging == false)
@@ -87,6 +107,7 @@ public class Gem : MonoBehaviour
 				}
 			}
 
+			// Handling phase of input touch is moved
 			if (dragging && touch.phase == TouchPhase.Moved) 
 			{
 				v3 = new Vector3 (Input.mousePosition.x, Input.mousePosition.y, dist);
@@ -94,17 +115,20 @@ public class Gem : MonoBehaviour
 				toDrag.position = v3 + offset;
 			}
 
+			// Handling phase of input touch ended or cancelled
 			if (dragging && (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)) 
 			{
 				dragging = false;
 				Global.isDragging = false;
 				OnSelectPar.SetActive (false);
 
+				// Gem swap function
 				if (gemToBeSwapped != null) 
 				{
 					gemToBeSwapped.GetComponent<Gem>().ReleaseThisGem ();
 				}
 
+				// Handling collisions with mirror
 				if (collMirror && MirrorGO != null) 
 				{
 					if (MirrorGO.GetComponent<Mirror> ().slots + 1 > MirrorGO.GetComponent<Mirror> ().maximumSlots) 
@@ -145,6 +169,7 @@ public class Gem : MonoBehaviour
 			originalScale = initialScale;
 		}
 
+		// Make the gem viewable above others when it is being dragged
 		if (dragging) 
 		{
 			GetComponent<SpriteRenderer> ().sortingOrder = 11;
