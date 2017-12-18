@@ -194,6 +194,18 @@ public class Mirror : MonoBehaviour
 			}
 		}
 
+        // Handle mouse click on mirror
+        if (Input.GetMouseButtonDown(0)) 
+        {
+            RaycastHit2D hit = Physics2D.Raycast (Camera.main.ScreenToWorldPoint (Input.mousePosition), Vector2.zero);
+
+            // If touched open the protractor
+            if (hit && (hit.collider.gameObject == toggleCollider)) 
+            {
+                ToggleProtractor ();
+            }
+        }
+
 		if (isProtractorOn) 
 		{
 			protractor.transform.localScale = Vector3.Lerp (protractor.transform.localScale, proOriginalScale, Time.deltaTime * 10);
