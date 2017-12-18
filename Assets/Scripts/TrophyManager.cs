@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class TM : MonoBehaviour {
+public class TrophyManager : MonoBehaviour {
 
 	public GameObject ExplosionEffect;
 	public Animator playerAnimator;
@@ -16,77 +16,107 @@ public class TM : MonoBehaviour {
 	public List<GameObject> bagList = new List<GameObject>();
 	private GameObject musicManager;
 	// Use this for initialization
-	void Start () {
+	
+    void Start () 
+    {
 		int levelProgress = SaveLoad.data.LevelProgress;
 		SaveLoad.Load ();
 		playerAnimator.SetBool ("Happy", true);
 		playerAnimator.SetBool ("Idle", false);
 		playerAnimator.SetBool ("Cel", false);
-		if (levelProgress > 30) {
+
+		if (levelProgress > 30) 
+        {
 			TrophyNum = 6;
-		} else if (levelProgress > 25) {
+		} 
+        else if (levelProgress > 25) 
+        {
 			TrophyNum = 5;
-		} else if (levelProgress > 18) {
+		} 
+        else if (levelProgress > 18) 
+        {
 			TrophyNum = 4;
-		} else if (levelProgress > 13) {
+		} 
+        else if (levelProgress > 13) 
+        {
 			TrophyNum = 3;
-		} else if (levelProgress > 7) {
+		} 
+        else if (levelProgress > 7) 
+        {
 			TrophyNum = 2;
-		} else if (levelProgress > 1) {
+		}
+        else if (levelProgress > 1) 
+        {
 			TrophyNum = 1;
-		} else {
+		} 
+        else 
+        {
 			TrophyNum = 0;
 			playerAnimator.SetBool ("Idle", true);
 			playerAnimator.SetBool ("Happy", false);
 			playerAnimator.SetBool ("Cel", false);
 		}
+
 		//chest and bags
-		if(levelProgress > 1){
+		if(levelProgress > 1)
+        {
 			bagList [0].SetActive (true);
 		}
-		if(levelProgress > 3){
+		if(levelProgress > 3)
+        {
 			bagList [1].SetActive (true);
 		}
-		if(levelProgress > 5){
+		if(levelProgress > 5)
+        {
 			bagList [2].SetActive (true);
 		}
-		if(levelProgress > 9){
+		if(levelProgress > 9)
+        {
 			bagList [3].SetActive (true);
 		}
-		if(levelProgress > 11){
+		if(levelProgress > 11)
+        {
 			bagList [4].SetActive (true);
 		}
-		if(levelProgress > 15){
+		if(levelProgress > 15)
+        {
 			bagList [5].SetActive (true);
 		}
-		if(levelProgress > 17){
+		if(levelProgress > 17)
+        {
 			bagList [6].SetActive (true);
 		}
-		if(levelProgress > 20){
+		if(levelProgress > 20)
+        {
 			bagList [7].SetActive (true);
 		}
-		if(levelProgress > 22){
+		if(levelProgress > 22)
+        {
 			bagList [8].SetActive (true);
 		}
-		if(levelProgress > 27){
+		if(levelProgress > 27)
+        {
 			bagList [9].SetActive (true);
 		}
-		if(levelProgress > 29){
+		if(levelProgress > 29)
+        {
 			bagList [10].SetActive (true);
 		}
-
-
-		if (SaveLoad.data.TrophyGot < TrophyNum) {
+            
+		if (SaveLoad.data.TrophyGot < TrophyNum) 
+        {
 			SaveLoad.data.TrophyGot = TrophyNum;
 			SaveLoad.Save();
 			showAnim = true;
 		}
 
-		for (int i = 0; i < TrophyNum; i++) {
+		for (int i = 0; i < TrophyNum; i++) 
+        {
 			trophyList.Add(Instantiate (GetComponent<Trophys> ().TrophyList [i], trophyPosList[i].position, Quaternion.identity));
 		}
 
-		if (showAnim) {
+		if (showAnim) 
+        {
 			playerAnimator.SetBool ("Happy", false);
 			playerAnimator.SetBool ("Idle", false);
 			playerAnimator.SetBool ("Cel", true);
@@ -95,27 +125,27 @@ public class TM : MonoBehaviour {
 			StartCoroutine (CountToShowAnim());
 		}
 
-		musicManager = GameObject.FindGameObjectWithTag ("MusicManager");
-		if (levelProgress <= 1) {
+        musicManager = GameObject.FindGameObjectWithTag (Global.TAG_MUSIC_MANAGER);
+
+		if (levelProgress <= 1) 
+        {
 			musicManager.GetComponent<MusicManager> ().PlayCabinSound ();
-		} else {
+		} 
+        else
+        {
 			musicManager.GetComponent<MusicManager> ().PlayCabin2Sound ();
 		}
 
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-		
 
-	public void ReturnMap(){
+	public void ReturnMap()
+    {
 		musicManager.GetComponent<MusicManager> ().PlayClickButton ();
-		SceneManager.LoadScene ("StageNew");
+        SceneManager.LoadScene (Global.SCENE_MAP);
 	}
 
-	IEnumerator CountToShowAnim(){
+	IEnumerator CountToShowAnim()
+    {
 		yield return new WaitForSeconds (0.4f);
 		animTrophy.SetActive (true);
 		Instantiate (ExplosionEffect, animTrophy.transform.position, Quaternion.identity);
