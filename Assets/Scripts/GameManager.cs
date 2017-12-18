@@ -237,7 +237,7 @@ public class GameManager : MonoBehaviour
 	/// <summary>
 	/// Loads the map scene.
 	/// </summary>
-	public void LoadMapScene ()
+	public void LoadHomeScene ()
 	{
 		SceneManager.LoadScene (Global.SCENE_MAP);
 	}
@@ -250,7 +250,7 @@ public class GameManager : MonoBehaviour
 		SceneManager.LoadScene (Global.SCENE_TREASURE);
 	}
 
-	/// <summary>
+	/// <summary>6
 	/// Show congrat UI when you complete this level
 	/// </summary>
 	public void StageClear ()
