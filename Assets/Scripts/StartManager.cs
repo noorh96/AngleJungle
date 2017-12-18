@@ -10,23 +10,23 @@ public class StartManager : MonoBehaviour {
     public GameObject ResetConfirmCanvas;
 	bool showLoading = false;
 	GameObject musicManager;
+
     // Use this for initialization
-    void Awake() {
+    void Awake() 
+    {
         InfoCanvas.SetActive(false);
         ResetCanvas.SetActive(false);
         ResetConfirmCanvas.SetActive(false);
         SaveLoad.Load();
     }
-	void Start () {
+
+	void Start () 
+    {
 		showLoading = false;
 		musicManager = GameObject.FindGameObjectWithTag (Global.TAG_MUSIC_MANAGER);
 		musicManager.GetComponent<MusicManager> ().PlayBGM ();
 	}
 	
-	// Update is called once per frame
-	void Update () {
-		
-	}
     void OnGUI()
     {
 //        if (GUI.Button(new Rect(10, 10, 160, 100), "Reset(1)"))
@@ -75,10 +75,8 @@ public class StartManager : MonoBehaviour {
 //			SceneManager.LoadScene("Level36");
 //		}
 
-
-
-
-		if (showLoading) {
+		if (showLoading) 
+        {
 			GUIStyle loadingStyle = new GUIStyle ();
 			Font myfont = (Font)Resources.Load ("fonts/Asap-Medium", typeof(Font));
 			loadingStyle.font = myfont;
@@ -92,37 +90,45 @@ public class StartManager : MonoBehaviour {
 
     }
 
-    public void Reset(int level) {
+    public void Reset(int level)
+    {
         SaveLoad.data = new PlayerData (level, 0, false);
         SaveLoad.Save ();
         ShowResetConfirm();
     }
 
-    public void LoadStage(){
+    public void LoadStage()
+    {
 		musicManager.GetComponent<MusicManager> ().PlayMenuButton ();
-		//reset everything
+		
+        //reset everything
 		if (SaveLoad.data.LevelProgress < 1) {
 			SaveLoad.data.LevelProgress = 1;
 			SaveLoad.data.TrophyOrder.Shuffle ();
 			SaveLoad.Save ();
 			//StartCoroutine (LoadStageCo("Level1"));
-			SceneManager.LoadScene ("StageNew");
+			SceneManager.LoadScene (Global.SCENE_MAP);
         }
-        else { 
-		    SceneManager.LoadScene ("StageNew");
+        else 
+        { 
+            SceneManager.LoadScene (Global.SCENE_MAP);
         }
     }
-	IEnumerator LoadStageCo(string stageName){
+	
+    IEnumerator LoadStageCo(string stageName)
+    {
 		showLoading = true;
 		float fadeTime = GetComponent<Fading> ().BeginFade (1);
 		yield return new WaitForSeconds (fadeTime);
 		SceneManager.LoadScene (stageName);
 	}
+
     public void HideInfo()
     {
         InfoCanvas.SetActive(false);
 		musicManager.GetComponent<MusicManager> ().PlayClickButton ();
     }
+
     public void ShowInfo()
     {
         InfoCanvas.SetActive(true);
@@ -134,21 +140,23 @@ public class StartManager : MonoBehaviour {
         ResetCanvas.SetActive(true);
 		musicManager.GetComponent<MusicManager> ().PlayMenuButton ();
     }
+
     public void HideReset()
     {
         ResetCanvas.SetActive(false);
 		musicManager.GetComponent<MusicManager> ().PlayClickButton ();
     }
+
     private void ShowResetConfirm()
     {
         ResetCanvas.SetActive(false);
         ResetConfirmCanvas.SetActive(true);
 		musicManager.GetComponent<MusicManager> ().PlayClickButton ();
     }
+
     public void HideResetConfirm()
     {
         ResetConfirmCanvas.SetActive(false);
 		musicManager.GetComponent<MusicManager> ().PlayClickButton ();
     }
-		
 }

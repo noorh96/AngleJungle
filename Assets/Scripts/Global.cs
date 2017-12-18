@@ -18,12 +18,14 @@ public class Global
 	public const string TAG_PROTRACTOR = "Protractor";
 	public const string TAG_MUSIC_MANAGER = "MusicManager";
 	public const string TAG_GO_BUTTON = "GoButton";
+    public const string TAG_PLAYER = "Player";
 
 	// Scene strings
 	public const string SCENE_MAP = "StageNew";
 	public const string SCENE_TREASURE = "Treasure";
 
     // Animation strings
+    public const string ANIMATION_HAPPY = "Happy";
     public const string ANIMATION_WALK = "Walk";
     public const string ANIMATION_IDLE = "Idle";
     public const string ANIMATION_CELEBRATE = "Cel";

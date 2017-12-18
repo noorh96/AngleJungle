@@ -21,9 +21,9 @@ public class TrophyManager : MonoBehaviour {
     {
 		int levelProgress = SaveLoad.data.LevelProgress;
 		SaveLoad.Load ();
-		playerAnimator.SetBool ("Happy", true);
-		playerAnimator.SetBool ("Idle", false);
-		playerAnimator.SetBool ("Cel", false);
+        playerAnimator.SetBool (Global.ANIMATION_HAPPY, true);
+        playerAnimator.SetBool (Global.ANIMATION_IDLE, false);
+        playerAnimator.SetBool (Global.ANIMATION_CELEBRATE, false);
 
 		if (levelProgress > 30) 
         {
@@ -52,9 +52,9 @@ public class TrophyManager : MonoBehaviour {
         else 
         {
 			TrophyNum = 0;
-			playerAnimator.SetBool ("Idle", true);
-			playerAnimator.SetBool ("Happy", false);
-			playerAnimator.SetBool ("Cel", false);
+            playerAnimator.SetBool (Global.ANIMATION_IDLE, true);
+            playerAnimator.SetBool (Global.ANIMATION_HAPPY, false);
+            playerAnimator.SetBool (Global.ANIMATION_CELEBRATE, false);
 		}
 
 		//chest and bags
@@ -117,9 +117,9 @@ public class TrophyManager : MonoBehaviour {
 
 		if (showAnim) 
         {
-			playerAnimator.SetBool ("Happy", false);
-			playerAnimator.SetBool ("Idle", false);
-			playerAnimator.SetBool ("Cel", true);
+            playerAnimator.SetBool (Global.ANIMATION_HAPPY, false);
+            playerAnimator.SetBool (Global.ANIMATION_IDLE, false);
+            playerAnimator.SetBool (Global.ANIMATION_CELEBRATE, true);
 			animTrophy = trophyList [TrophyNum - 1];
 			animTrophy.SetActive (false);
 			StartCoroutine (CountToShowAnim());

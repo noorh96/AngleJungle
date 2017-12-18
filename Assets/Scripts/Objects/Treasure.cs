@@ -18,54 +18,77 @@ public class Treasure : MonoBehaviour {
 	GameObject treasure;
 	Vector3 originTreasureScale;
 	bool isTreasureCanvasActivated = false;
+
 	// Use this for initialization
-	void Start () {
+	void Start () 
+    {
 		GetComponent<SpriteRenderer> ().sprite = sp_closedChest;
 		par_Chest.SetActive (false);
 		scene = SceneManager.GetActiveScene ();
 		levelIndex = scene.buildIndex - 1;
-		//Play Ambient Sound
-		musicManager = GameObject.FindGameObjectWithTag ("MusicManager");
-		if (levelIndex <= 7) {
+		
+        //Play Ambient Sound
+		musicManager = GameObject.FindGameObjectWithTag (Global.TAG_MUSIC_MANAGER);
+		
+        if (levelIndex <= 7)
+        {
 			musicManager.GetComponent<MusicManager> ().PlayS1Sound ();
-		} else if (levelIndex > 7 && levelIndex <= 13) {
+		} 
+        else if (levelIndex > 7 && levelIndex <= 13)
+        {
 			musicManager.GetComponent<MusicManager> ().PlayS2Sound ();
-		} else if (levelIndex > 13 && levelIndex <= 18) {
+		}
+        else if (levelIndex > 13 && levelIndex <= 18) 
+        {
 			musicManager.GetComponent<MusicManager> ().PlayS3Sound ();
-		} else if (levelIndex > 18 && levelIndex <= 25) {
+		} 
+        else if (levelIndex > 18 && levelIndex <= 25) 
+        {
 			musicManager.GetComponent<MusicManager> ().PlayS4Sound ();
-		}else {
+		}
+        else 
+        {
 			musicManager.GetComponent<MusicManager> ().PlayS5Sound ();
 		}
+
 		if(TreasureCanvas != null)
 			TreasureCanvas.SetActive(false);
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		if (treasure != null) {
+	void Update () 
+    {
+		if (treasure != null) 
+        {
 			treasure.transform.position = Vector2.Lerp (treasure.transform.position, Camera.main.gameObject.transform.position, Time.deltaTime);
 			treasure.transform.localScale = Vector2.Lerp (treasure.transform.localScale, originTreasureScale * 2.4f, Time.deltaTime);
 		}
-		if (TreasureCanvas != null && isTreasureCanvasActivated) {
+		if (TreasureCanvas != null && isTreasureCanvasActivated) 
+        {
 			TreasureCanvas.GetComponentInChildren<Image> ().color = Color.Lerp (TreasureCanvas.GetComponentInChildren<Image> ().color, new Color(1,1,1,0.8f), Time.deltaTime);
 		}
 	}
 
 	void OnTriggerEnter2D(Collider2D coll)
 	{
-		if (coll.gameObject.tag == "Player") {
+		if (coll.gameObject.tag == Global.TAG_PLAYER) 
+        {
 			bool isFirstTimePassThisLevel = false;
 			SaveLoad.Load ();
-			if (SaveLoad.data.LevelProgress == levelIndex) {
+
+			if (SaveLoad.data.LevelProgress == levelIndex) 
+            {
 				SaveLoad.data.LevelProgress++;
 				SaveLoad.Save ();
 				isFirstTimePassThisLevel = true;
 			}
+
 			coll.gameObject.GetComponent<Player> ().Get ();
 			GetComponent<SpriteRenderer> ().sprite = sp_openChest;
 			par_Chest.SetActive (true);
-			if (isFirstTimePassThisLevel && (levelIndex == 1 || levelIndex == 7 || levelIndex == 13 || levelIndex == 18 || levelIndex == 25 || levelIndex == 30)) {
+
+			if (isFirstTimePassThisLevel && (levelIndex == 1 || levelIndex == 7 || levelIndex == 13 || levelIndex == 18 || levelIndex == 25 || levelIndex == 30)) 
+            {
 				StartCoroutine (CountToShowTreasure ());
 				switch (levelIndex) {
 				case 1:
@@ -87,29 +110,36 @@ public class Treasure : MonoBehaviour {
 					TrophyIndex = 5;
 					break;
 				}
-			} else {
+			} 
+            else 
+            {
 				StartCoroutine (CountToClearStage ());
 			}
 		}
 	}
 
-	void TreasureOnScreen(){
+	void TreasureOnScreen()
+    {
 		//Instantiate Treasure
 		treasure = (GameObject)Instantiate (GM.GetComponent<Trophys> ().TrophyList [TrophyIndex], gameObject.transform.position, Quaternion.identity);
 		originTreasureScale = treasure.transform.localScale;
+
 		//TreasureCanvas
-		if (TreasureCanvas != null) {
+		if (TreasureCanvas != null) 
+        {
 			TreasureCanvas.SetActive (true);
 			isTreasureCanvasActivated = true;
 		}
 	}
 
-	IEnumerator CountToClearStage(){
+	IEnumerator CountToClearStage()
+    {
 		yield return new WaitForSeconds (1);
 		GM.GetComponent<GameManager> ().StageClear ();
 	}
 
-	IEnumerator CountToShowTreasure(){
+	IEnumerator CountToShowTreasure()
+    {
 		yield return new WaitForSeconds (0.2f);
 		TreasureOnScreen ();
 		GM.GetComponent<GameManager> ().ShowTreasure ();

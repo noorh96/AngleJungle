@@ -29,16 +29,19 @@ public class PowerGem : MonoBehaviour {
 	private float countDown = -1f;
 	private float countFactor = 3f;
 	private SpriteRenderer sp;
+
 	/// <summary>
 	/// Initialize power dots on the power gem
 	/// </summary>
-	void Start () {
+	void Start () 
+    {
 		sp = GetComponent<SpriteRenderer> ();
 		L1.SetActive (false);
 		L2.SetActive (false);
 		L3.SetActive (false);
 		L4.SetActive (false);
-		switch (ActivateNum) {
+		
+        switch (ActivateNum) {
 		case 1:
 			greyPG = greyPG1;
 			redPG = redPG1;
@@ -70,6 +73,7 @@ public class PowerGem : MonoBehaviour {
 			L4.transform.localPosition = new Vector2 (1.77f, -1.994f);
 			break;
 		}
+
 		sp.sprite = greyPG;
 		PowerGemParticle.SetActive (false);
 		StartCoroutine (CountDown());
@@ -79,13 +83,15 @@ public class PowerGem : MonoBehaviour {
 	/// Set the threshold of activited power dots needed for win
 	/// </summary>
 	void Update () {
-		if (ActivateNum == 1) {
+		if (ActivateNum == 1) 
+        {
 			if (countDown >= 4)
 				L1.SetActive (true);
 			else
 				L1.SetActive (false);
 		}
-		else if (ActivateNum == 2) {
+		else if (ActivateNum == 2) 
+        {
 			if (countDown >= 0)
 				L1.SetActive (true);
 			else
@@ -95,7 +101,8 @@ public class PowerGem : MonoBehaviour {
 			else
 				L2.SetActive (false);
 		}
-		else if (ActivateNum == 3) {
+		else if (ActivateNum == 3) 
+        {
 			if (countDown >= 0)
 				L1.SetActive (true);
 			else
@@ -108,7 +115,9 @@ public class PowerGem : MonoBehaviour {
 				L3.SetActive (true);
 			else
 				L3.SetActive (false);
-		}else if (ActivateNum == 4) {
+		}
+        else if (ActivateNum == 4) 
+        {
 			if (countDown >= 0)
 				L1.SetActive (true);
 			else
@@ -139,10 +148,12 @@ public class PowerGem : MonoBehaviour {
 	/// particle system will call this method on collision to increase power gem energy
 	/// Can be interrupted by DeactivateGem
 	/// </summary>
-	public void ActivateGem(){
+	public void ActivateGem()
+    {
 		countDown = Mathf.Min((countDown + 1f), 4);
 		//countDown ++;
-		if (countDown >= 4) {
+		if (countDown >= 4) 
+        {
 			PowerGemParticle.SetActive (true);
 			sp.sprite = redPG;
 			door.GetComponent<Door> ().OpenDoor ();
@@ -152,7 +163,8 @@ public class PowerGem : MonoBehaviour {
 	/// <summary>
 	/// Deactivates the gem, interrupt ActivateGem()
 	/// </summary>
-	public void DeactivateGem(){
+	public void DeactivateGem()
+    {
 		PowerGemParticle.SetActive (false);
 		sp.sprite = greyPG;
 		door.GetComponent<Door> ().CloseDoor();
@@ -161,11 +173,15 @@ public class PowerGem : MonoBehaviour {
 	/// <summary>
 	/// Constantly count down to compensate ActivateGem()'s effect made by particles
 	/// </summary>
-	IEnumerator CountDown(){
-		while (true) {
+	IEnumerator CountDown()
+    {
+		while (true)
+        {
 			yield return new WaitForSeconds (0.01f);
 			countDown = Mathf.Max((countDown - countFactor), -1f);//1:-0.5; 2:-1; 3:-2.3; 4:3.0
-			if (countDown <= 0) {
+			
+            if (countDown <= 0) 
+            {
 				DeactivateGem ();
 			}
 		}
