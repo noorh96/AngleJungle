@@ -63,6 +63,7 @@ public class GameManager : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
+        // Handling touch of go button
 		if (Input.touchCount > 0 && (Input.GetTouch (0).phase == TouchPhase.Began || Input.GetTouch (0).phase == TouchPhase.Moved)) 
 		{
 			RaycastHit2D hit = Physics2D.Raycast (Camera.main.ScreenToWorldPoint (Input.GetTouch (0).position), Vector2.zero);
@@ -72,8 +73,19 @@ public class GameManager : MonoBehaviour
 				goButton_as.Play ();
 				Win ();
 			}
-		
 		}
+
+        // Handling left click of go button
+        if (Input.GetMouseButtonDown(0))
+        {
+            RaycastHit2D hit = Physics2D.Raycast (Camera.main.ScreenToWorldPoint (Input.mousePosition), Vector2.zero);
+
+            if (hit && hit.collider != null && hit.collider.tag == Global.TAG_GO_BUTTON && !isPauseMenuOn) 
+            {
+                goButton_as.Play ();
+                Win ();
+            }
+        }
 	}
 
 //	public void ButtonDadoSoundPlay(){
