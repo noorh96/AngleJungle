@@ -231,7 +231,7 @@ public class Mirror : MonoBehaviour
 	/// </summary>
 	public void ToggleProtractor()
 	{
-		GameObject handClickTutorial = GameObject.FindGameObjectWithTag ("HandClickTutorial");
+        GameObject handClickTutorial = GameObject.FindGameObjectWithTag (Global.TAG_HAND_TUTORIAL);
 
 		if(handClickTutorial != null)
 			handClickTutorial.SetActive (false);
