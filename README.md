@@ -11,3 +11,9 @@ Yonglin Zhang <br />
 
 Project description: http://wp.me/p3uZlz-1Fh <br />
 Development post: http://somegamez.com/wit/transformational-complexity
+
+Credits: 
+Toon Flame <br />
+JMO Assets <br />
+Vectrosity <br />
+VayLaserPack <br />
