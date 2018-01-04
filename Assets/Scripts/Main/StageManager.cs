@@ -15,24 +15,24 @@ public class StageManager : MonoBehaviour {
 	bool showLoading = false;
 
 	// Use this for initialization
-	void Start () {
-		musicManager = GameObject.FindGameObjectWithTag ("MusicManager");
+	void Start () 
+	{
+		musicManager = GameObject.FindGameObjectWithTag (Global.TAG_MUSIC_MANAGER);
 		musicManager.GetComponent<MusicManager> ().PlayMAPSound ();
+
 		showLoading = false;
 		SaveLoad.Load ();
 		currentLevelProgress = SaveLoad.data.LevelProgress;
 		//btn_1.GetComponent<Button> ().interactable = false;
-		for(int i=0;i<currentLevelProgress - 1;i++) {
+
+		for(int i=0;i<currentLevelProgress - 1;i++) 
+		{
 			buttonsList [i].GetComponent<Button> ().interactable = true;
 			buttonsList [i].GetComponent<StageButton> ().ShowStar ();
 		}
+
         if(currentLevelProgress <= 30)
             buttonsList [currentLevelProgress - 1].GetComponent<Button> ().interactable = true;
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
 	}
 
 	public void LoadStage(string stageName)
@@ -40,17 +40,21 @@ public class StageManager : MonoBehaviour {
 		musicManager.GetComponent<MusicManager> ().PlayClickButton ();
 		StartCoroutine (LoadStageCo(stageName));
 	}
-	public void LoadStart(){
+
+	public void LoadStart()
+	{
 		musicManager.GetComponent<MusicManager> ().PlayClickButton ();
-		SceneManager.LoadScene ("Start");
+		SceneManager.LoadScene (Global.SCENE_START);
 	}
 
-    public void LoadTreasure() {
+    public void LoadTreasure() 
+	{
 		musicManager.GetComponent<MusicManager> ().PlayCreakClickButton ();
-        SceneManager.LoadScene("Treasure");
+		SceneManager.LoadScene(Global.SCENE_TREASURE);
     }
 
-	IEnumerator LoadStageCo(string stageName){
+	IEnumerator LoadStageCo(string stageName)
+	{
 		showLoading = true;
 		float fadeTime = GetComponent<Fading> ().BeginFade (1);
 		yield return new WaitForSeconds (fadeTime);
@@ -59,7 +63,8 @@ public class StageManager : MonoBehaviour {
 
 	void OnGUI()
 	{
-		if (showLoading) {
+		if (showLoading) 
+		{
 			GUIStyle loadingStyle = new GUIStyle ();
 			Font myfont = (Font)Resources.Load ("fonts/Asap-Medium", typeof(Font));
 			loadingStyle.font = myfont;

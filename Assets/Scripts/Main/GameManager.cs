@@ -20,9 +20,6 @@ public class GameManager : MonoBehaviour
 
 	private GameObject[] protractors;
 
-	public AudioSource asButton_Dado;
-	public AudioSource asButton_Dalala;
-	public AudioSource asButton_Du;
 	public AudioSource goButton_as;
 	public AudioSource music_win;
 	public AudioSource complete_level;
@@ -87,18 +84,6 @@ public class GameManager : MonoBehaviour
             }
         }
 	}
-
-//	public void ButtonDadoSoundPlay(){
-//		asButton_Dado.Play ();
-//	}
-//
-//	public void ButtonDalalaSoundPlay(){
-//		asButton_Dalala.Play ();
-//	}
-//
-//	public void ButtonDuSoundPlay(){
-//		asButton_Du.Play ();
-//	}
 
 	/// <summary>
 	/// Shows the pause menu.

@@ -23,6 +23,7 @@ public class Global
 	// Scene strings
 	public const string SCENE_MAP = "StageNew";
 	public const string SCENE_TREASURE = "Treasure";
+	public const string SCENE_START = "Start";
 
     // Animation strings
     public const string ANIMATION_HAPPY = "Happy";
