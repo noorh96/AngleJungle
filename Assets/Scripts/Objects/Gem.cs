@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class Gem : MonoBehaviour
 {
-	// Enum
-	enum Interface {Touch = 0, Mouse = 1};
-
 	// Ints
 	private int layerMask;
 	private int interfaceType;
@@ -49,11 +46,11 @@ public class Gem : MonoBehaviour
 		// Checks for touch if no touch is available uses mouse
 		if (Input.touchSupported) 
 		{
-			interfaceType = (int) Interface.Touch;
+			interfaceType = (int) Global.Interface.Touch;
 		} 
 		else 
 		{
-			interfaceType = (int) Interface.Mouse;
+			interfaceType = (int) Global.Interface.Mouse;
 		}
 			
 		layerMask = ~ (1 << LayerMask.NameToLayer(Global.LAYER_POWER_GEM));
@@ -79,7 +76,7 @@ public class Gem : MonoBehaviour
 		switch (interfaceType) 
 		{
 			// Handle touch
-			case (int) Interface.Touch:
+		case (int) Global.Interface.Touch:
 				
 				Touch touch;
 

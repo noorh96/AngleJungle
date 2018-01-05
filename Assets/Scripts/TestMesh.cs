@@ -4,8 +4,6 @@ using System.Collections;
 [RequireComponent(typeof(MeshRenderer), typeof(MeshFilter))]
 public class TestMesh : MonoBehaviour
 {
-
-
 	public float radius = 2;
 	public float startAngleDegree = 0;
 	public float angleDegree = 100;

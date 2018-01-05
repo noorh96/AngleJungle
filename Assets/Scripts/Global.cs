@@ -30,4 +30,9 @@ public class Global
     public const string ANIMATION_WALK = "Walk";
     public const string ANIMATION_IDLE = "Idle";
     public const string ANIMATION_CELEBRATE = "Cel";
+
+	// Font strings
+	public const string FONT_ASAP_MEDIUM = "fonts/Asap-Medium";
+
+	public enum Interface {Touch = 0, Mouse = 1};
 }

@@ -78,7 +78,7 @@ public class StartManager : MonoBehaviour {
 		if (showLoading) 
         {
 			GUIStyle loadingStyle = new GUIStyle ();
-			Font myfont = (Font)Resources.Load ("fonts/Asap-Medium", typeof(Font));
+			Font myfont = (Font)Resources.Load (Global.FONT_ASAP_MEDIUM, typeof(Font));
 			loadingStyle.font = myfont;
 			loadingStyle.fontSize = 60;
 			loadingStyle.alignment = TextAnchor.MiddleCenter;

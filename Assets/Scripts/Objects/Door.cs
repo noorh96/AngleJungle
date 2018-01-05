@@ -8,22 +8,20 @@ public class Door : MonoBehaviour {
 	public GameObject Flame;
 	public GameObject EyeMask;
 	public GameObject DoorParticle;
+
 	// Use this for initialization
-	void Start () {
+	void Start () 
+	{
 		_GM.GetComponent<GameManager> ().door = gameObject;
 		Flame.SetActive (true);
 		EyeMask.SetActive (false);
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
 	}
 
 	/// <summary>
 	/// Opens the door.
 	/// </summary>
-	public void OpenDoor(){
+	public void OpenDoor()
+	{
 		//Flame.SetActive (false);
 		//EyeMask.SetActive (true);
 		//DoorParticle.SetActive(true);
@@ -34,7 +32,8 @@ public class Door : MonoBehaviour {
 	/// <summary>
 	/// Doors the opened.
 	/// </summary>
-	public void DoorOpened(){
+	public void DoorOpened()
+	{
 		Flame.SetActive (false);
 		EyeMask.SetActive (true);
 		DoorParticle.SetActive(true);
@@ -43,11 +42,11 @@ public class Door : MonoBehaviour {
 	/// <summary>
 	/// Closes the door.
 	/// </summary>
-	public void CloseDoor(){
+	public void CloseDoor()
+	{
 		//Flame.SetActive (true);
 		//EyeMask.SetActive (false);
 		//DoorParticle.SetActive(false);
 		_GM.GetComponent<GameManager> ().DoorClosed ();
 	}
-		
 }
