@@ -4,66 +4,106 @@ using UnityEngine;
 
 public class DragCamera : MonoBehaviour {
 
+	private int interfaceType;
 	public float dragSpeed = 1f;
 	// Internal variables for managing touches and drags
 	private float scrollVelocity = 0f;
 	private float timeTouchPhaseEnded = 0f;
+	private bool fInsideList = true;
+	bool isMouseMoving = false;
 
 	public Vector2 scrollPosition;
 
 	public float inertiaDuration = 0.75f;
-	
+
+	// Use this for initialization
+	void Start ()
+	{
+		// Checks for touch if no touch is available uses mouse
+		if (Input.touchSupported) 
+		{
+			interfaceType = (int)Global.Interface.Touch;
+		} 
+		else 
+		{
+			interfaceType = (int)Global.Interface.Mouse;
+		}
+	}
+
 	// Update is called once per frame
 	void Update () {
 
-		if (Input.touchCount != 1)
+		switch (interfaceType) 
 		{
-
-			if ( scrollVelocity != 0.0f )
+		// Handle touch
+		case (int) Global.Interface.Touch:
+			
+			if (Input.touchCount != 1)
 			{
-				// slow down over time
-				float t = (Time.time - timeTouchPhaseEnded) / inertiaDuration;
-				if (scrollPosition.x <= 0 || Camera.main.ScreenToViewportPoint(scrollPosition).x >= 12.66f)
+				if ( scrollVelocity != 0.0f )
 				{
-					// bounce back if top or bottom reached
-					scrollVelocity = 0;
+					// slow down over time
+					float t = (Time.time - timeTouchPhaseEnded) / inertiaDuration;
+					if (scrollPosition.x <= 0 || Camera.main.ScreenToViewportPoint(scrollPosition).x >= 12.66f)
+					{
+						// bounce back if top or bottom reached
+						scrollVelocity = 0;
+					}
+
+					float frameVelocity = Mathf.Lerp(scrollVelocity * dragSpeed, 0, t);
+					scrollPosition.x -= frameVelocity * Time.deltaTime;
+
+					// after N seconds, we've stopped
+					if (t >= 1.0f) scrollVelocity = 0.0f;
 				}
-
-				float frameVelocity = Mathf.Lerp(scrollVelocity * dragSpeed, 0, t);
-				scrollPosition.x -= frameVelocity * Time.deltaTime;
-
-				// after N seconds, we've stopped
-				if (t >= 1.0f) scrollVelocity = 0.0f;
+				transform.position = Camera.main.ScreenToViewportPoint(scrollPosition);
+				return;
 			}
-			transform.position = Camera.main.ScreenToViewportPoint(scrollPosition);
-			return;
-		}
 
-		Touch touch = Input.touches[0];
-		bool fInsideList = true;//IsTouchInsideList(touch.position);
+			Touch touch = Input.touches[0];
+			//bool fInsideList = true;//IsTouchInsideList(touch.position);
 
-		if (touch.phase == TouchPhase.Began && fInsideList)
-		{
-			//selected = TouchToRowIndex(touch.position);
-			scrollVelocity = 0.0f;
-		}
-		else if (touch.phase == TouchPhase.Moved && fInsideList)
-		{
-			// dragging
-			if (!((scrollPosition.x <= 0 && touch.deltaPosition.x > 0) || (Camera.main.ScreenToViewportPoint (scrollPosition).x >= 12.66f && touch.deltaPosition.x < 0))) {
-				scrollPosition.x -= touch.deltaPosition.x * dragSpeed;
+			if (touch.phase == TouchPhase.Began && fInsideList)
+			{
+				//selected = TouchToRowIndex(touch.position);
+				scrollVelocity = 0.0f;
 			}
-		}
-		else if (touch.phase == TouchPhase.Ended)
-		{
+			else if (touch.phase == TouchPhase.Moved && fInsideList)
+			{
+				// dragging
+				if (!((scrollPosition.x <= 0 && touch.deltaPosition.x > 0) || (Camera.main.ScreenToViewportPoint (scrollPosition).x >= 12.66f && touch.deltaPosition.x < 0))) {
+					scrollPosition.x -= touch.deltaPosition.x * dragSpeed;
+				}
+			}
+			else if (touch.phase == TouchPhase.Ended)
+			{
 				// impart momentum, using last delta as the starting velocity
 				// ignore delta < 10; precision issues can cause ultra-high velocity
 				if (Mathf.Abs(touch.deltaPosition.x) >= 3) 
 					scrollVelocity = (int)(touch.deltaPosition.x / touch.deltaTime);
 
 				timeTouchPhaseEnded = Time.time;
+			}
+
+			break;
+
+			// Handle Mouse
+		default:
+
+			if (Input.GetMouseButtonUp(0))
+				isMouseMoving = false;
+
+			if (Input.GetMouseButtonDown(0))
+				isMouseMoving = true;
+
+			if (isMouseMoving) 
+			{
+				scrollPosition.x = Input.mousePosition.x * dragSpeed;
+				transform.position = Camera.main.ScreenToViewportPoint (scrollPosition);
+			}
+
+			break;
 		}
-		transform.position = Camera.main.ScreenToViewportPoint(scrollPosition);
 
 		//if (Input.touchCount > 0 && Input.GetTouch (0).phase == TouchPhase.Moved) {
 			//Vector2 touchDeltaPosition = Camera.main.ScreenToViewportPoint(Input.GetTouch (0).deltaPosition);
@@ -71,7 +111,9 @@ public class DragCamera : MonoBehaviour {
 			//transform.position = new Vector2 (Mathf.Clamp(transform.position.x, 0, 12.66f), 0);
 		//}
 	}
-	void OnGUI(){
+
+	void OnGUI()
+	{
 //		if (Input.touchCount > 0 && Input.GetTouch (0).phase == TouchPhase.Moved) {
 //			Touch touch = Input.GetTouch (0);
 //			Vector2 touchDeltaPosition = Camera.main.ScreenToViewportPoint(touch.deltaPosition);
