@@ -12,13 +12,15 @@ public class Global
 	public const string LAYER_POWER_GEM = "PowerGem";
 
 	// Tag strings
-	public const string TAG_MIRROR_COLLIDER = "MirrorCollider";
 	public const string TAG_DRAGGABLE = "Draggable";
-	public const string TAG_HAND_TUTORIAL = "HandClickTutorial";
-	public const string TAG_PROTRACTOR = "Protractor";
-	public const string TAG_MUSIC_MANAGER = "MusicManager";
 	public const string TAG_GO_BUTTON = "GoButton";
-    public const string TAG_PLAYER = "Player";
+	public const string TAG_HAND_TUTORIAL = "HandClickTutorial";
+	public const string TAG_MIRROR_COLLIDER = "MirrorCollider";
+	public const string TAG_MIRROR_RECEIVER = "MirrorReceiver";
+	public const string TAG_MUSIC_MANAGER = "MusicManager";
+	public const string TAG_PLAYER = "Player";
+	public const string TAG_POWER_GEM = "PowerGem";
+	public const string TAG_PROTRACTOR = "Protractor";
 
 	// Scene strings
 	public const string SCENE_MAP = "StageNew";
