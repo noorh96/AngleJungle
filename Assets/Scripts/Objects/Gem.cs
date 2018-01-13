@@ -71,8 +71,6 @@ public class Gem : MonoBehaviour
         if (Global.isPaused)
             return;
 
-
-
         switch (interfaceType)
         {
             // Handle touch

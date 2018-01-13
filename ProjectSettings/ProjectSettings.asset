@@ -213,7 +213,7 @@ PlayerSettings:
   - m_BuildTarget: 
     m_Icons:
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: 76ffe41f656a081448bce7e8e001204d, type: 3}
+      m_Icon: {fileID: 2800000, guid: 8cef9a627ed5e59488998ba6d223313d, type: 3}
       m_Width: 128
       m_Height: 128
   m_BuildTargetBatching: []
@@ -479,6 +479,10 @@ PlayerSettings:
   XboxOnePersistentLocalStorageSize: 0
   vrEditorSettings: {}
   cloudServicesEnabled:
+    Build: 0
+    Collab: 0
+    ErrorHub: 0
+    Hub: 0
     UNet: 1
   cloudProjectId: d1399ec4-6164-4b48-a555-ae71f65bf529
   projectName: AngleJungle
