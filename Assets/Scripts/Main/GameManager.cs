@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Analytics;
 using UnityEngine.SceneManagement;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
@@ -38,7 +37,9 @@ public class GameManager : MonoBehaviour
 	void Awake ()
 	{
 		// Start timing level for analytics
-		levelStart = Time.time;
+		AnalyticsSingleton.Instance.levelEnd = Time.time;
+		AnalyticsSingleton.Instance.levelName = SceneManager.GetActiveScene ().name;
+
 		isPauseMenuOn = false;
 		isLevelFinished = false;
 		StartCoroutine (AntiCheater());
@@ -276,11 +277,7 @@ public class GameManager : MonoBehaviour
 		Player.GetComponent<Player> ().FeelHappy ();
 
 		// Calculate level time and send to analytics
-		levelTime = Time.time - levelStart;
-		Analytics.CustomEvent("levelEnded", new Dictionary<string, object>
-			{	
-				{ SceneManager.GetActiveScene().name, levelTime }
-			});
+		AnalyticsSingleton.Instance.levelEnd = Time.time - levelStart;
 	}
 
 	/// <summary>

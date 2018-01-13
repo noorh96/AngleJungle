@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 114253248242127354}
   - component: {fileID: 114697244858140648}
   - component: {fileID: 114174017154762006}
+  - component: {fileID: 114621336702560474}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -441,6 +442,17 @@ MonoBehaviour:
   goButton_as: {fileID: 82985200378160716}
   music_win: {fileID: 82422418168279264}
   complete_level: {fileID: 82950753229930268}
+--- !u!114 &114621336702560474
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1153813398034768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8058e58bf73298742acbe40b04e2950a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114697244858140648
 MonoBehaviour:
   m_ObjectHideFlags: 1
