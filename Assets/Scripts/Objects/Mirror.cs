@@ -119,8 +119,8 @@ public class Mirror : MonoBehaviour
 			sr.sprite = redMirrorSp;
 		}
 
-		//proOriginalScale = new Vector3(0.7f, 0.7f, 0.7f);
-		//protractor.transform.localScale = Vector3.zero;
+		proOriginalScale = new Vector3(0.7f, 0.7f, 0.7f);
+		protractor.transform.localScale = Vector3.zero;
 	}
 
 	/// <summary>
@@ -194,7 +194,7 @@ public class Mirror : MonoBehaviour
 		}
 
         // Handle mouse click on mirror
-        if (Input.GetMouseButtonDown(0)) 
+        else if (Input.GetMouseButtonDown(0)) 
         {
             RaycastHit2D hit = Physics2D.Raycast (Camera.main.ScreenToWorldPoint (Input.mousePosition), Vector2.zero);
 
@@ -207,13 +207,11 @@ public class Mirror : MonoBehaviour
 
         if (isProtractorOn)
         {
-            protractor.SetActive(true);
-            //protractor.transform.localScale = Vector3.Lerp(protractor.transform.localScale, proOriginalScale, Time.deltaTime * 10);
+            protractor.transform.localScale = Vector3.Lerp(protractor.transform.localScale, proOriginalScale, Time.deltaTime * 10);
         }
         else
         {
-            protractor.SetActive(false);
-            //protractor.transform.localScale = Vector3.Lerp(protractor.transform.localScale, Vector3.zero, Time.deltaTime * 10);
+            protractor.transform.localScale = Vector3.Lerp(protractor.transform.localScale, Vector3.zero, Time.deltaTime * 10);
         }
     }
 
