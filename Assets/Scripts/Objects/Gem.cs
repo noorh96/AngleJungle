@@ -30,91 +30,8 @@ public class Gem : MonoBehaviour
 	// Bools
 	private bool dragging = false;
 	private bool collMirror = false;
-    private bool isMouseDown = false;
+	private bool isMouseDown = false;
 
-<<<<<<< HEAD
-    public bool onSlot = false;
-
-    // Tranforrms
-    private Transform toDrag;
-    private Vector3 v3, pos;
-    // Floats
-    private float dist;
-
-    // Use this for initialization
-    void Start()
-    {
-        // Checks for touch if no touch is available uses mouse
-        if (Input.touchSupported)
-        {
-            interfaceType = (int)Global.Interface.Touch;
-        }
-        else
-        {
-            interfaceType = (int)Global.Interface.Mouse;
-        }
-
-        layerMask = ~(1 << LayerMask.NameToLayer(Global.LAYER_POWER_GEM));
-        initialScale = transform.localScale;
-        originalPos = transform.position;
-        originalScale = transform.localScale;
-        OnSelectPar.SetActive(false);
-        PutGemInMirror();
-    }
-
-    /// <summary>
-    /// Update() is where the dragging system installed and managed.
-    /// </summary>
-    void Update()
-    {
-        //TODO:[what gems they pick up]
-        //TODO:[how many taps the player spend]
-        if (Global.isPaused)
-            return;
-
-        switch (interfaceType)
-        {
-            // Handle touch
-            case (int)Global.Interface.Touch:
-
-                Touch touch;
-
-                // No touch happening
-                if (Input.touchCount <= 0)
-                {
-                    SetNoInput();
-                }
-                // Something is being touched
-                else
-                {
-                    touch = Input.touches[0];
-                    pos = touch.position;
-
-                    // Handling case of input touch begins
-                    if (touch.phase == TouchPhase.Began)
-                    {
-                        ReleaseMethod();
-                    }
-
-                    // Handling phase of input touch is moved
-                    if (dragging && touch.phase == TouchPhase.Moved)
-                    {
-                        MoveMethod();
-                    }
-
-                    // Handling phase of input touch ended or cancelled
-                    if (dragging && (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled))
-                    {
-                        SetNoInput();
-
-                        PressDownMethod();
-                    }
-                }
-
-                break;
-
-            // Handle Mouse
-=======
 	public bool onSlot = false;
 
 	// Tranforrms
@@ -135,7 +52,7 @@ public class Gem : MonoBehaviour
 		{
 			interfaceType = (int) Global.Interface.Mouse;
 		}
-			
+
 		layerMask = ~ (1 << LayerMask.NameToLayer(Global.LAYER_POWER_GEM));
 		initialScale = transform.localScale;
 		originalPos = transform.position;
@@ -143,7 +60,7 @@ public class Gem : MonoBehaviour
 		OnSelectPar.SetActive (false);
 		PutGemInMirror ();
 	}
-	
+
 	/// <summary>
 	/// Update() is where the dragging system installed and managed.
 	/// </summary>
@@ -158,183 +75,182 @@ public class Gem : MonoBehaviour
 
 		switch (interfaceType) 
 		{
-			// Handle touch
+		// Handle touch
 		case (int) Global.Interface.Touch:
-				
-				Touch touch;
 
-				// No touch happening
-				if (Input.touchCount <= 0)
+			Touch touch;
+
+			// No touch happening
+			if (Input.touchCount <= 0)
+			{
+				SetNoInput();
+			} 
+			// Something is being touched
+			else
+			{
+				touch = Input.touches[0];
+				pos = touch.position;
+
+				// Handling case of input touch begins
+				if (touch.phase == TouchPhase.Began)
+				{
+					RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(touch.position), Vector2.zero, Mathf.Infinity, layerMask);
+
+					// Handle collisions between raycast and gameobjects
+					if (hit && (hit.collider.gameObject == gameObject))
+					{
+						//if (Global.isDragging == false)
+						//as_PickGem.Play ();
+
+						if (onSlot && MirrorGO != null)
+						{
+							onSlot = false;
+							MirrorGO.GetComponent<Mirror>().slots--;
+							MirrorGO.GetComponent<Mirror>().pickerNumber -= gemAngle;
+							MirrorGO.GetComponent<Mirror>().ReleasePosition(gameObject);
+							Global.antiCheater = 2;
+						}
+
+						toDrag = hit.transform;
+						dist = hit.transform.position.z - Camera.main.transform.position.z;
+						v3 = new Vector3(pos.x, pos.y, dist);
+						v3 = Camera.main.ScreenToWorldPoint(v3);
+						offset = toDrag.position - v3;
+						dragging = true;
+						Global.isDragging = true;
+						OnSelectPar.SetActive(true);
+					}
+				}
+
+				// Handling phase of input touch is moved
+				if (dragging && touch.phase == TouchPhase.Moved)
+				{
+					v3 = new Vector3(Input.mousePosition.x, Input.mousePosition.y, dist);
+					v3 = Camera.main.ScreenToWorldPoint(v3);
+					toDrag.position = v3 + offset;
+				}
+
+				// Handling phase of input touch ended or cancelled
+				if (dragging && (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled))
 				{
 					SetNoInput();
-				} 
-				// Something is being touched
-				else
+
+					// Gem swap function
+					if (gemToBeSwapped != null)
+					{
+						gemToBeSwapped.GetComponent<Gem>().ReleaseThisGem();
+					}
+
+					// Handling collisions with mirror
+					if (collMirror && MirrorGO != null)
+					{
+						if (MirrorGO.GetComponent<Mirror>().slots + 1 > MirrorGO.GetComponent<Mirror>().maximumSlots)
+						{
+							onSlot = false;
+						}
+						else
+						{
+							MirrorGO.GetComponent<Mirror>().slots++;
+							onSlot = true;
+							//fetch the position of gem
+							slotPosition = MirrorGO.GetComponent<Mirror>().ArrangePosition(gameObject);
+							MirrorGO.GetComponent<Mirror>().pickerNumber += gemAngle;
+							//set anti-cheater conuter to 2
+							Global.antiCheater = 2;
+						}
+					}
+				}
+			}
+
+			break;
+
+			// Handle Mouse
+		default:
+
+			// Handling mouse lifted
+			if (Input.GetMouseButtonUp(0))
+			{
+				isMouseDown = false;
+
+				if (dragging)
 				{
-					touch = Input.touches[0];
-					pos = touch.position;
-
-					// Handling case of input touch begins
-					if (touch.phase == TouchPhase.Began)
+					// Gem swap function
+					if (gemToBeSwapped != null)
 					{
-						RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(touch.position), Vector2.zero, Mathf.Infinity, layerMask);
-
-						// Handle collisions between raycast and gameobjects
-						if (hit && (hit.collider.gameObject == gameObject))
-						{
-							//if (Global.isDragging == false)
-							//as_PickGem.Play ();
-
-							if (onSlot && MirrorGO != null)
-							{
-								onSlot = false;
-								MirrorGO.GetComponent<Mirror>().slots--;
-								MirrorGO.GetComponent<Mirror>().pickerNumber -= gemAngle;
-								MirrorGO.GetComponent<Mirror>().ReleasePosition(gameObject);
-								Global.antiCheater = 2;
-							}
-
-							toDrag = hit.transform;
-							dist = hit.transform.position.z - Camera.main.transform.position.z;
-							v3 = new Vector3(pos.x, pos.y, dist);
-							v3 = Camera.main.ScreenToWorldPoint(v3);
-							offset = toDrag.position - v3;
-							dragging = true;
-							Global.isDragging = true;
-							OnSelectPar.SetActive(true);
-						}
+						gemToBeSwapped.GetComponent<Gem>().ReleaseThisGem();
 					}
 
-					// Handling phase of input touch is moved
-					if (dragging && touch.phase == TouchPhase.Moved)
+					// Handling collisions with mirror
+					if (collMirror && MirrorGO != null)
 					{
-						v3 = new Vector3(Input.mousePosition.x, Input.mousePosition.y, dist);
-						v3 = Camera.main.ScreenToWorldPoint(v3);
-						toDrag.position = v3 + offset;
-					}
-
-					// Handling phase of input touch ended or cancelled
-					if (dragging && (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled))
-					{
-						SetNoInput();
-
-						// Gem swap function
-						if (gemToBeSwapped != null)
+						if (MirrorGO.GetComponent<Mirror>().slots + 1 > MirrorGO.GetComponent<Mirror>().maximumSlots)
 						{
-							gemToBeSwapped.GetComponent<Gem>().ReleaseThisGem();
+							onSlot = false;
 						}
-
-						// Handling collisions with mirror
-						if (collMirror && MirrorGO != null)
+						else
 						{
-							if (MirrorGO.GetComponent<Mirror>().slots + 1 > MirrorGO.GetComponent<Mirror>().maximumSlots)
-							{
-								onSlot = false;
-							}
-							else
-							{
-								MirrorGO.GetComponent<Mirror>().slots++;
-								onSlot = true;
-								//fetch the position of gem
-								slotPosition = MirrorGO.GetComponent<Mirror>().ArrangePosition(gameObject);
-								MirrorGO.GetComponent<Mirror>().pickerNumber += gemAngle;
-								//set anti-cheater conuter to 2
-								Global.antiCheater = 2;
-							}
+							MirrorGO.GetComponent<Mirror>().slots++;
+							onSlot = true;
+							//fetch the position of gem
+							slotPosition = MirrorGO.GetComponent<Mirror>().ArrangePosition(gameObject);
+							MirrorGO.GetComponent<Mirror>().pickerNumber += gemAngle;
+							//set anti-cheater conuter to 2
+							Global.antiCheater = 2;
 						}
 					}
 				}
 
-				break;
+				SetNoInput();
+			} 
 
-			// Handle Mouse
->>>>>>> parent of abf0a86... Refactor Press, Release, Moving method
-            default:
+			// Handling left click press but not lifted
+			if (Input.GetMouseButtonDown(0))
+			{
+				isMouseDown = true;
+				pos = Input.mousePosition; 
 
-				// Handling mouse lifted
-                if (Input.GetMouseButtonUp(0))
-                {
-                    isMouseDown = false;
+				if (isMouseDown)
+				{
+					RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, Mathf.Infinity, layerMask);
 
-                    if (dragging)
-                    {
-                        // Gem swap function
-                        if (gemToBeSwapped != null)
-                        {
-                            gemToBeSwapped.GetComponent<Gem>().ReleaseThisGem();
-                        }
+					// Handle collisions between raycast and gameobjects
+					if (hit && (hit.collider.gameObject == gameObject))
+					{
+						//if (Global.isDragging == false)
+						//as_PickGem.Play ();
 
-                        // Handling collisions with mirror
-                        if (collMirror && MirrorGO != null)
-                        {
-                            if (MirrorGO.GetComponent<Mirror>().slots + 1 > MirrorGO.GetComponent<Mirror>().maximumSlots)
-                            {
-                                onSlot = false;
-                            }
-                            else
-                            {
-                                MirrorGO.GetComponent<Mirror>().slots++;
-                                onSlot = true;
-                                //fetch the position of gem
-                                slotPosition = MirrorGO.GetComponent<Mirror>().ArrangePosition(gameObject);
-                                MirrorGO.GetComponent<Mirror>().pickerNumber += gemAngle;
-                                //set anti-cheater conuter to 2
-                                Global.antiCheater = 2;
-                            }
-                        }
-                    }
+						if (onSlot && MirrorGO != null)
+						{
+							onSlot = false;
+							MirrorGO.GetComponent<Mirror>().slots--;
+							MirrorGO.GetComponent<Mirror>().pickerNumber -= gemAngle;
+							MirrorGO.GetComponent<Mirror>().ReleasePosition(gameObject);
+							Global.antiCheater = 2;
+						}
 
-                    SetNoInput();
-                } 
-				
-				// Handling left click press but not lifted
-                if (Input.GetMouseButtonDown(0))
-                {
-                    isMouseDown = true;
-                    pos = Input.mousePosition; 
-					
-                    if (isMouseDown)
-                    {
-                        RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, Mathf.Infinity, layerMask);
+						toDrag = hit.transform;
+						dist = hit.transform.position.z - Camera.main.transform.position.z;
+						v3 = new Vector3(pos.x, pos.y, dist);
+						v3 = Camera.main.ScreenToWorldPoint(v3);
+						offset = toDrag.position - v3;
+						dragging = true;
+						Global.isDragging = true;
+						OnSelectPar.SetActive(true);
+					}
+				}
+			}
 
-                        // Handle collisions between raycast and gameobjects
-                        if (hit && (hit.collider.gameObject == gameObject))
-                        {
-                            //if (Global.isDragging == false)
-                            //as_PickGem.Play ();
+			// Handling dragging of gem that is pressed
+			if (isMouseDown && dragging)
+			{
+				v3 = new Vector3(Input.mousePosition.x, Input.mousePosition.y, dist);
+				v3 = Camera.main.ScreenToWorldPoint(v3);
+				toDrag.position = v3 + offset;
+			}
 
-                            if (onSlot && MirrorGO != null)
-                            {
-                                onSlot = false;
-                                MirrorGO.GetComponent<Mirror>().slots--;
-                                MirrorGO.GetComponent<Mirror>().pickerNumber -= gemAngle;
-                                MirrorGO.GetComponent<Mirror>().ReleasePosition(gameObject);
-                                Global.antiCheater = 2;
-                            }
-
-                            toDrag = hit.transform;
-                            dist = hit.transform.position.z - Camera.main.transform.position.z;
-                            v3 = new Vector3(pos.x, pos.y, dist);
-                            v3 = Camera.main.ScreenToWorldPoint(v3);
-                            offset = toDrag.position - v3;
-                            dragging = true;
-                            Global.isDragging = true;
-                            OnSelectPar.SetActive(true);
-                        }
-                    }
-                }
-
-                // Handling dragging of gem that is pressed
-                if (isMouseDown && dragging)
-                {
-                    v3 = new Vector3(Input.mousePosition.x, Input.mousePosition.y, dist);
-                    v3 = Camera.main.ScreenToWorldPoint(v3);
-                    toDrag.position = v3 + offset;
-                }
-
-				break;
+			break;
 		}
-			
+
 		if (onSlot) 
 		{
 			transform.position = new Vector3 (slotPosition.x, slotPosition.y, transform.position.z);
