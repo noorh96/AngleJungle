@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SoundSingleton : MonoBehaviour {
+public class Singleton : MonoBehaviour {
 
-	private static SoundSingleton instance = null;
+	private static Singleton instance = null;
 	
-    public static SoundSingleton Instance
+    public static Singleton Instance
     {
 		get { return instance; }
 	}
