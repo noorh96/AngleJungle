@@ -25,5 +25,4 @@ public class SoundSingleton : MonoBehaviour {
 
 		DontDestroyOnLoad (this.gameObject);
 	}
-
 }
