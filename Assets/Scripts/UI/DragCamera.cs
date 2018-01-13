@@ -61,7 +61,7 @@ public class DragCamera : MonoBehaviour {
 			}
 
 			Touch touch = Input.touches[0];
-			//bool fInsideList = true;//IsTouchInsideList(touch.position);
+			bool fInsideList = true;//IsTouchInsideList(touch.position);
 
 			if (touch.phase == TouchPhase.Began && fInsideList)
 			{
@@ -104,6 +104,8 @@ public class DragCamera : MonoBehaviour {
 
 			break;
 		}
+
+		transform.position = Camera.main.ScreenToViewportPoint(scrollPosition);
 
 		//if (Input.touchCount > 0 && Input.GetTouch (0).phase == TouchPhase.Moved) {
 			//Vector2 touchDeltaPosition = Camera.main.ScreenToViewportPoint(Input.GetTouch (0).deltaPosition);
