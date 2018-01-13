@@ -120,8 +120,8 @@ public class Mirror : MonoBehaviour
 			sr.sprite = redMirrorSp;
 		}
 
-		proOriginalScale = protractor.transform.localScale;
-		protractor.transform.localScale = 0 * proOriginalScale;
+		proOriginalScale = new Vector3(0.7f, 0.7f, 0.7f);
+		protractor.transform.localScale = Vector3.zero;
 	}
 
 	/// <summary>
@@ -206,15 +206,15 @@ public class Mirror : MonoBehaviour
             }
         }
 
-		if (isProtractorOn) 
-		{
-			protractor.transform.localScale = Vector3.Lerp (protractor.transform.localScale, proOriginalScale, Time.deltaTime * 10);
-		} 
-		else 
-		{
-			protractor.transform.localScale = Vector3.Lerp (protractor.transform.localScale, proOriginalScale * 0, Time.deltaTime * 10);
-		}
-	}
+        if (isProtractorOn)
+        {
+            protractor.transform.localScale = Vector3.Lerp(protractor.transform.localScale, proOriginalScale, Time.deltaTime * 10);
+        }
+        else
+        {
+            protractor.transform.localScale = Vector3.Lerp(protractor.transform.localScale, Vector3.zero, Time.deltaTime * 10);
+        }
+    }
 
 	/// <summary>
 	/// Normalizes the angle within 360. It also works with negative angles
