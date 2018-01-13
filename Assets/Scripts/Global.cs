@@ -36,5 +36,8 @@ public class Global
 	// Font strings
 	public const string FONT_ASAP_MEDIUM = "fonts/Asap-Medium";
 
+	// Analytics event strings
+	public const string ANALYTICS_LEVEL_ENDED = "levelEnded";
+
 	public enum Interface {Touch = 0, Mouse = 1};
 }

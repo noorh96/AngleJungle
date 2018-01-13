@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Analytics;
 using UnityEngine.SceneManagement;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
@@ -31,10 +32,13 @@ public class GameManager : MonoBehaviour
 	private bool isPauseMenuOn = false;
 	bool isLevelFinished = false;
 
+	private float levelStart, levelTime;
+
 	// Use this for initialization
 	void Awake ()
 	{
-		//TODO: [time to complete the level] start counting
+		// Start timing level for analytics
+		levelStart = Time.time;
 		isPauseMenuOn = false;
 		isLevelFinished = false;
 		StartCoroutine (AntiCheater());
@@ -270,7 +274,13 @@ public class GameManager : MonoBehaviour
 		isLevelFinished = true;
 		door.GetComponent<Door> ().DoorOpened ();
 		Player.GetComponent<Player> ().FeelHappy ();
-		//TODO: [time to complete the level] end counting
+
+		// Calculate level time and send to analytics
+		levelTime = Time.time - levelStart;
+		Analytics.CustomEvent("levelEnded", new Dictionary<string, object>
+			{	
+				{ SceneManager.GetActiveScene().name, levelTime }
+			});
 	}
 
 	/// <summary>
