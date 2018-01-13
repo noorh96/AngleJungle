@@ -12,6 +12,10 @@ public class DragCamera : MonoBehaviour {
 	private bool fInsideList = true;
 	bool isMouseMoving = false;
 
+	private Vector3 delta = Vector3.zero;
+	private Vector3 mouseLastPos = Vector3.zero;
+	private float mouseTouchStart, mouseTouchEnd;
+
 	public Vector2 scrollPosition;
 
 	public float inertiaDuration = 0.75f;
@@ -90,16 +94,73 @@ public class DragCamera : MonoBehaviour {
 			// Handle Mouse
 		default:
 
-			if (Input.GetMouseButtonUp(0))
+			// Left click lifted - assume mouse movement finished
+			if (Input.GetMouseButtonUp (0)) 
+			{
+				mouseTouchEnd = Time.time;
 				isMouseMoving = false;
 
-			if (Input.GetMouseButtonDown(0))
-				isMouseMoving = true;
+				// impart momentum, using last delta as the starting velocity
+				// ignore delta < 10; precision issues can cause ultra-high velocity
+				if (Mathf.Abs(delta.x) >= 3) 
+					scrollVelocity = (int)(delta.x / (mouseTouchEnd - mouseTouchStart));
 
+				timeTouchPhaseEnded = Time.time;
+			}
+
+			// Left click pressed - assume mouse movement started
+			if (Input.GetMouseButtonDown (0)) 
+			{
+				mouseTouchStart = Time.time;
+				mouseLastPos = Input.mousePosition;
+				isMouseMoving = true;
+			}
+
+			// Handling mouse moving
 			if (isMouseMoving) 
 			{
-				scrollPosition.x = Input.mousePosition.x * dragSpeed;
-				transform.position = Camera.main.ScreenToViewportPoint (scrollPosition);
+				// Update mouse position
+				delta = Input.mousePosition - mouseLastPos;
+
+				// No movement occured
+				if (delta == Vector3.zero)
+				{
+					//selected = TouchToRowIndex(touch.position);
+					scrollVelocity = 0.0f;
+				}
+				// Movement occured
+				else if (delta != Vector3.zero)
+				{
+					// dragging
+					if (!((scrollPosition.x <= 0 && delta.x > 0) || (Camera.main.ScreenToViewportPoint (scrollPosition).x >= 12.66f && delta.x < 0))) {
+						scrollPosition.x -= delta.x * dragSpeed;
+					}
+				}
+
+				// Update mouse position
+				mouseLastPos = Input.mousePosition;
+			}
+			// Handle drift due to swiping
+			else
+			{
+				if ( scrollVelocity != 0.0f )
+				{
+					// slow down over time
+					float t = (Time.time - timeTouchPhaseEnded) / inertiaDuration;
+					if (scrollPosition.x <= 0 || Camera.main.ScreenToViewportPoint(scrollPosition).x >= 12.66f)
+					{
+						// bounce back if top or bottom reached
+						scrollVelocity = 0;
+					}
+
+					float frameVelocity = Mathf.Lerp(scrollVelocity * dragSpeed, 0, t);
+					scrollPosition.x -= frameVelocity * Time.deltaTime;
+
+					// after N seconds, we've stopped
+					if (t >= 1.0f) scrollVelocity = 0.0f;
+				}
+				transform.position = Camera.main.ScreenToViewportPoint(scrollPosition);
+				return;
 			}
 
 			break;
