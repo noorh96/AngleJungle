@@ -54,7 +54,6 @@ public class Mirror : MonoBehaviour
 	float showNumber = 0f;
 	float degreeNumber = 0f;
 	SpriteRenderer sr;
-	private bool isProActivated = false;
 
 	private float lerpTime = 16f;
 	private float curLerpTime = 0;
@@ -249,12 +248,8 @@ public class Mirror : MonoBehaviour
 
 		if(handClickTutorial != null)
 			handClickTutorial.SetActive (false);
-		if (isProActivated)
-			isProtractorOn = false;
-		else
-			isProtractorOn = true;
 
-		isProActivated = !isProActivated;
+        isProtractorOn = !isProtractorOn;
 		as_toggle.Play ();
 	}
 
