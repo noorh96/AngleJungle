@@ -472,8 +472,9 @@ PlayerSettings:
   XboxOneAllowedProductIds: []
   XboxOnePersistentLocalStorageSize: 0
   vrEditorSettings: {}
-  cloudServicesEnabled: {}
-  cloudProjectId: 
-  projectName: 
-  organizationId: 
+  cloudServicesEnabled:
+    UNet: 1
+  cloudProjectId: d1399ec4-6164-4b48-a555-ae71f65bf529
+  projectName: AngleJungle
+  organizationId: jakhan
   cloudEnabled: 0
