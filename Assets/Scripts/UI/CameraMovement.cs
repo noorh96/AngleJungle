@@ -8,13 +8,17 @@ public class CameraMovement : MonoBehaviour {
 	public float timeToUnlockCamera=1.4f;
 	private Vector3 leftPosition, rightPosition;
 	private bool isCameraLocked=true;
-
-	// Use this for initialization
-	void Awake()
+    private Vector3 LEFT_EDGE = new Vector3(-9.7f, 1f, -10f);
+    private Vector3 RGHT_EDGE = new Vector3(6.8f, 1f, -10f);
+    // Use this for initialization
+    void Awake()
 	{
-		rightPosition = transform.position;
-		leftPosition = rightPosition + new Vector3 (-3f,0,0);
-		MoveToLeftImdtl ();
+        Vector3 left = Camera.main.ViewportToWorldPoint(new Vector3(0.0F, 0.0F, Camera.main.nearClipPlane));
+        Vector3 right = Camera.main.ViewportToWorldPoint(new Vector3(1.0F, 0.0F, Camera.main.nearClipPlane));
+        Vector3 offset = new Vector3((right.x - left.x) / 2, 0, 0);
+        rightPosition = RGHT_EDGE - offset;
+        leftPosition = LEFT_EDGE + offset;
+        MoveToLeftImdtl ();
 	}
 
 	void Start () 
