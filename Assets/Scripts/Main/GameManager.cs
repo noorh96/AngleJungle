@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
 	void Awake ()
 	{
 		// Start timing level for analytics
-		AnalyticsSingleton.Instance.levelEnd = Time.time;
+		AnalyticsSingleton.Instance.levelStart = Time.time;
 		AnalyticsSingleton.Instance.levelName = SceneManager.GetActiveScene ().name;
 
 		isPauseMenuOn = false;
