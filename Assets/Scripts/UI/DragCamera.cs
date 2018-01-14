@@ -33,7 +33,7 @@ public class DragCamera : MonoBehaviour {
 		{
 			interfaceType = (int)Global.Interface.Mouse;
 		}
-        interfaceType = (int)Global.Interface.Touch;
+        interfaceType = (int)Global.Interface.Mouse;
 
     }
 
