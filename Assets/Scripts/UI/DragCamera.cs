@@ -5,7 +5,7 @@ using UnityEngine;
 public class DragCamera : MonoBehaviour {
 
 	private int interfaceType;
-	public float dragSpeed = 1f;
+	public float dragSpeed = 10f;
 	// Internal variables for managing touches and drags
 	private float scrollVelocity = 0f;
 	private float timeTouchPhaseEnded = 0f;
