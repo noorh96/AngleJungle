@@ -9504,7 +9504,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d2062d5df16dfd4cb0e29d86ad14e99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dragSpeed: 8
+  dragSpeed: 80
   scrollPosition: {x: 0, y: 0}
   inertiaDuration: 0.75
 --- !u!1 &1844618850
