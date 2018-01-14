@@ -11,7 +11,7 @@ public class AnalyticsSingleton : Singleton<AnalyticsSingleton> {
 	// Parameters for analytics
 	public float levelStart, levelEnd, levelTime;
 	public string levelName;
-	public Dictionary<string, List<string>> mirrorData; 
+	public Dictionary<string, List<string>> mirrorData = new Dictionary<string, List<string>>(); 
 
 	/// <summary>
 	/// Method for tracking gem placements in the level.
@@ -22,8 +22,8 @@ public class AnalyticsSingleton : Singleton<AnalyticsSingleton> {
 	{
 		if (!mirrorData.ContainsKey (mirror)) 
 		{
-			mirrorData.Add(mirror, new List<string>());
-		}
+			mirrorData.Add (mirror, new List<string> ());
+		} 
 
 		mirrorData [mirror].Add (gemName);
 	}
@@ -35,13 +35,21 @@ public class AnalyticsSingleton : Singleton<AnalyticsSingleton> {
 	{
 		levelTime = levelEnd - levelStart;
 
-		Analytics.CustomEvent("levelEnded", new Dictionary<string, object>
-			{	
-				{ levelName, levelTime },
-				{ levelName, mirrorData}
-			});
+		Dictionary<string, object> dataDict = new Dictionary<string, object> ();
+
+		dataDict.Add ("levelTime", levelTime);
+
+		foreach (KeyValuePair<string, List<string>> mirror in mirrorData)
+		{
+			dataDict.Add (mirror.Key, mirror.Value.Count);
+		}
+
+		Analytics.CustomEvent (levelName, dataDict);
 
 		// Flush mirrorData for next level
-		mirrorData.Clear ();
+		if (mirrorData != null) 
+		{
+			mirrorData.Clear ();
+		}
 	}
 }
