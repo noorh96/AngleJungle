@@ -8,9 +8,25 @@ public class AnalyticsSingleton : Singleton<AnalyticsSingleton> {
 
 	protected AnalyticsSingleton () {}
 
+	// Parameters for analytics
 	public float levelStart, levelEnd, levelTime;
 	public string levelName;
-	//public static gemPlacements;
+	public Dictionary<string, List<string>> mirrorData; 
+
+	/// <summary>
+	/// Method for tracking gem placements in the level.
+	/// </summary>
+	/// <param name="mirror">Mirror that gem was placed in.</param>
+	/// <param name="gemName">Name of gem that was placed - name described the gem value.</param>
+	public void AddGem(string mirror, string gemName)
+	{
+		if (!mirrorData.ContainsKey (mirror)) 
+		{
+			mirrorData.Add(mirror, new List<string>());
+		}
+
+		mirrorData [mirror].Add (gemName);
+	}
 
 	/// <summary>
 	/// Dispatchs the analytics level data about gems.
@@ -21,7 +37,11 @@ public class AnalyticsSingleton : Singleton<AnalyticsSingleton> {
 
 		Analytics.CustomEvent("levelEnded", new Dictionary<string, object>
 			{	
-				{ levelName, levelTime }
+				{ levelName, levelTime },
+				{ levelName, mirrorData}
 			});
+
+		// Flush mirrorData for next level
+		mirrorData.Clear ();
 	}
 }

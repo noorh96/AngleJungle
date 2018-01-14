@@ -138,6 +138,7 @@ public class Gem : MonoBehaviour
 					// Gem swap function
 					if (gemToBeSwapped != null)
 					{
+						AnalyticsSingleton.Instance.AddGem (MirrorGO.GetComponent<Mirror> ().name, gemToBeSwapped.GetComponent<Gem> ().name);
 						gemToBeSwapped.GetComponent<Gem>().ReleaseThisGem();
 					}
 
@@ -177,6 +178,7 @@ public class Gem : MonoBehaviour
 					// Gem swap function
 					if (gemToBeSwapped != null)
 					{
+						AnalyticsSingleton.Instance.AddGem (MirrorGO.GetComponent<Mirror> ().name, gemToBeSwapped.GetComponent<Gem> ().name);
 						gemToBeSwapped.GetComponent<Gem>().ReleaseThisGem();
 					}
 

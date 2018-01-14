@@ -277,7 +277,8 @@ public class GameManager : MonoBehaviour
 		Player.GetComponent<Player> ().FeelHappy ();
 
 		// Calculate level time and send to analytics
-		AnalyticsSingleton.Instance.levelEnd = Time.time - levelStart;
+		AnalyticsSingleton.Instance.levelEnd = Time.time;
+		AnalyticsSingleton.Instance.DispatchData ();
 	}
 
 	/// <summary>
