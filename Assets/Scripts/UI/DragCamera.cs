@@ -23,6 +23,7 @@ public class DragCamera : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
 	{
+        dragSpeed = Screen.width / 60;
 		// Checks for touch if no touch is available uses mouse
 		if (Input.touchSupported) 
 		{
@@ -32,7 +33,9 @@ public class DragCamera : MonoBehaviour {
 		{
 			interfaceType = (int)Global.Interface.Mouse;
 		}
-	}
+        interfaceType = (int)Global.Interface.Touch;
+
+    }
 
 	// Update is called once per frame
 	void Update () {
