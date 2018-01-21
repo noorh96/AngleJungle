@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using System.Linq;
 using System;
 
 public class GameManager : MonoBehaviour
@@ -278,7 +279,14 @@ public class GameManager : MonoBehaviour
 
 		// Calculate level time and send to analytics
 		AnalyticsSingleton.Instance.levelEnd = Time.time;
-		AnalyticsSingleton.Instance.DispatchData ();
+
+		Mirror[] mirrors = ((Mirror[]) GameObject.FindObjectsOfType (typeof(Mirror)));
+		AnalyticsSingleton.Instance.gemEndState.BuildGemEndState (mirrors.ToList());
+		AnalyticsSingleton.Instance.CalculateLevelTime ();
+		//AnalyticsSingleton.Instance.gemEndState.DebugPrint ();
+		AnalyticsSingleton.Instance.DebugPrint();
+		//TODO : Enable when done
+		//AnalyticsSingleton.Instance.DispatchData ();
 	}
 
 	/// <summary>

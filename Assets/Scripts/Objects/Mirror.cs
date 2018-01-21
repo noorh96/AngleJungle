@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Vectrosity;
 
-class SlotUnit
+public class SlotUnit
 {
 	public bool isSlotEmpty;
 	public Vector2 position;
@@ -32,13 +32,9 @@ public class Mirror : MonoBehaviour
 	private Sprite greyMirrorSp;
 	private Sprite redMirrorSp;
 
-	public Sprite greyMirror1;
-	public Sprite greyMirror2;
-	public Sprite greyMirror3;
+	public Sprite greyMirror1, greyMirror2, greyMirror3;
 
-	public Sprite redMirror1;
-	public Sprite redMirror2;
-	public Sprite redMirror3;
+	public Sprite redMirror1, redMirror2, redMirror3;
 
 	public GameObject protractor;
 	public AudioSource as_toggle;
@@ -49,7 +45,7 @@ public class Mirror : MonoBehaviour
 	Vector2 CentralPoint = Vector2.zero;
 	float angle = 0f;
 	bool isActivated = false;
-	List<SlotUnit> slotList;
+	public List<SlotUnit> slotList;
 	private int countDown=3;
 	float showNumber = 0f;
 	float degreeNumber = 0f;
@@ -249,6 +245,7 @@ public class Mirror : MonoBehaviour
 
         isProtractorOn = !isProtractorOn;
 		as_toggle.Play ();
+		AnalyticsSingleton.Instance.protractorOpenedNum++;
 	}
 
 	/// <summary>

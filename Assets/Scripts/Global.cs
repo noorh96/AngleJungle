@@ -37,7 +37,11 @@ public class Global
 	public const string FONT_ASAP_MEDIUM = "fonts/Asap-Medium";
 
 	// Analytics event strings
+	public const string ANALYTICS_ACTION_REMOVED = "action_removed";
+	public const string ANALYTICS_ACTION_PLACED = "action_placed";
+	public const string ANALYTICS_PROTRACTOR_OPENED = "protractorOpenedNum";
 	public const string ANALYTICS_LEVEL_ENDED = "levelEnded";
+	public const string ANALYTICS_LEVEL_TIME = "levelTime";
 
 	public enum Interface {Touch = 0, Mouse = 1};
 }

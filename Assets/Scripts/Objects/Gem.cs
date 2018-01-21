@@ -104,6 +104,7 @@ public class Gem : MonoBehaviour
 
 						if (onSlot && MirrorGO != null)
 						{
+							AnalyticsSingleton.Instance.gemHistory.AddGem (MirrorGO.GetComponent<Mirror> ().name, Global.ANALYTICS_ACTION_REMOVED, gameObject.name);
 							onSlot = false;
 							MirrorGO.GetComponent<Mirror>().slots--;
 							MirrorGO.GetComponent<Mirror>().pickerNumber -= gemAngle;
@@ -138,7 +139,7 @@ public class Gem : MonoBehaviour
 					// Gem swap function
 					if (gemToBeSwapped != null)
 					{
-						AnalyticsSingleton.Instance.AddGem (MirrorGO.GetComponent<Mirror> ().name, gemToBeSwapped.GetComponent<Gem> ().name);
+						AnalyticsSingleton.Instance.gemHistory.AddGem (MirrorGO.GetComponent<Mirror> ().name, Global.ANALYTICS_ACTION_REMOVED, gemToBeSwapped.GetComponent<Gem> ().name);
 						gemToBeSwapped.GetComponent<Gem>().ReleaseThisGem();
 					}
 
@@ -151,6 +152,7 @@ public class Gem : MonoBehaviour
 						}
 						else
 						{
+							AnalyticsSingleton.Instance.gemHistory.AddGem (MirrorGO.GetComponent<Mirror> ().name, Global.ANALYTICS_ACTION_PLACED, gameObject.name);
 							MirrorGO.GetComponent<Mirror>().slots++;
 							onSlot = true;
 							//fetch the position of gem
@@ -178,7 +180,7 @@ public class Gem : MonoBehaviour
 					// Gem swap function
 					if (gemToBeSwapped != null)
 					{
-						AnalyticsSingleton.Instance.AddGem (MirrorGO.GetComponent<Mirror> ().name, gemToBeSwapped.GetComponent<Gem> ().name);
+						AnalyticsSingleton.Instance.gemHistory.AddGem (MirrorGO.GetComponent<Mirror> ().name, Global.ANALYTICS_ACTION_REMOVED, gemToBeSwapped.GetComponent<Gem> ().name);
 						gemToBeSwapped.GetComponent<Gem>().ReleaseThisGem();
 					}
 
@@ -191,6 +193,7 @@ public class Gem : MonoBehaviour
 						}
 						else
 						{
+							AnalyticsSingleton.Instance.gemHistory.AddGem (MirrorGO.GetComponent<Mirror> ().name, Global.ANALYTICS_ACTION_PLACED, gameObject.name);
 							MirrorGO.GetComponent<Mirror>().slots++;
 							onSlot = true;
 							//fetch the position of gem
@@ -223,6 +226,7 @@ public class Gem : MonoBehaviour
 
 						if (onSlot && MirrorGO != null)
 						{
+							AnalyticsSingleton.Instance.gemHistory.AddGem (MirrorGO.GetComponent<Mirror> ().name, Global.ANALYTICS_ACTION_REMOVED, gameObject.name);
 							onSlot = false;
 							MirrorGO.GetComponent<Mirror>().slots--;
 							MirrorGO.GetComponent<Mirror>().pickerNumber -= gemAngle;

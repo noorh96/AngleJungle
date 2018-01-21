@@ -11,45 +11,41 @@ public class AnalyticsSingleton : Singleton<AnalyticsSingleton> {
 	// Parameters for analytics
 	public float levelStart, levelEnd, levelTime;
 	public string levelName;
-	public Dictionary<string, List<string>> mirrorData = new Dictionary<string, List<string>>(); 
+	public int protractorOpenedNum;
+	public AnalyticsGemEndState gemEndState = new AnalyticsGemEndState();
+	public AnalyticsGemHistory gemHistory = new AnalyticsGemHistory();
 
-	/// <summary>
-	/// Method for tracking gem placements in the level.
-	/// </summary>
-	/// <param name="mirror">Mirror that gem was placed in.</param>
-	/// <param name="gemName">Name of gem that was placed - name described the gem value.</param>
-	public void AddGem(string mirror, string gemName)
+	public void CalculateLevelTime()
 	{
-		if (!mirrorData.ContainsKey (mirror)) 
-		{
-			mirrorData.Add (mirror, new List<string> ());
-		} 
-
-		mirrorData [mirror].Add (gemName);
+		levelTime = levelEnd - levelStart;
 	}
 
 	/// <summary>
 	/// Dispatchs the analytics level data about gems.
-	/// </summary>
+	/// </summary>	
 	public void DispatchData()
 	{
-		levelTime = levelEnd - levelStart;
-
 		Dictionary<string, object> dataDict = new Dictionary<string, object> ();
 
-		dataDict.Add ("levelTime", levelTime);
-
-		foreach (KeyValuePair<string, List<string>> mirror in mirrorData)
-		{
-			dataDict.Add (mirror.Key, mirror.Value.Count);
-		}
+		dataDict.Add (Global.ANALYTICS_LEVEL_TIME, levelTime);
 
 		Analytics.CustomEvent (levelName, dataDict);
 
 		// Flush mirrorData for next level
-		if (mirrorData != null) 
+		if (gemHistory.mirrorData != null || gemEndState.mirrorData != null) 
 		{
-			mirrorData.Clear ();
+			gemHistory.mirrorData.Clear ();
+			gemEndState.mirrorData.Clear ();
 		}
+	}
+
+	public void DebugPrint()
+	{
+		Debug.Log (Global.ANALYTICS_LEVEL_TIME + " " + levelTime);
+		Debug.Log (Global.ANALYTICS_PROTRACTOR_OPENED + " " + protractorOpenedNum);
+		Debug.Log ("GEM HISTORY");
+		gemHistory.DebugPrint ();
+		Debug.Log ("GEM END STATE");
+		gemEndState.DebugPrint ();
 	}
 }
