@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Newtonsoft.Json;
 
 public class AnalyticsGemEndState {
 
@@ -27,16 +28,27 @@ public class AnalyticsGemEndState {
 	/// </summary>
 	public void DebugPrint()
 	{
-		foreach (var mirror in mirrorData) 
-		{
-			Debug.Log (mirror.Key);
+        //foreach (var mirror in mirrorData) 
+        //{
+        //	Debug.Log (mirror.Key);
 
-			foreach (var gem in mirror.Value) 
-			{
-				Debug.Log (gem);			
-			}	
-		}
+        //	foreach (var gem in mirror.Value) 
+        //	{
+        //		Debug.Log (gem);			
+        //	}	
+        //}
+
+        Debug.Log(ToJson());
 	}
+
+    /// <summary>
+    /// Converts the gem end state data to JSON.
+    /// </summary>
+    /// <returns>JSON data of gem end state</returns>
+    public string ToJson()
+    {
+        return JsonConvert.SerializeObject(mirrorData);
+    }
 
 	/// <summary>
 	/// Builds the state of the gems at the end of the level.

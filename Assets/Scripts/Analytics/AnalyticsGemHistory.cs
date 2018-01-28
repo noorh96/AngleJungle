@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Newtonsoft.Json;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -26,7 +27,7 @@ public class AnalyticsGemHistory {
 	/// </summary>
 	public void DebugPrint()
 	{
-		foreach (var mirror in mirrorData) 
+        /*foreach (var mirror in mirrorData) 
 		{
 			Debug.Log (mirror.Key);
 
@@ -34,6 +35,17 @@ public class AnalyticsGemHistory {
 			{
 				Debug.Log (gem.action + " " + gem.gemName);			
 			}	
-		}
+		}*/
+
+        Debug.Log(ToJson());
 	}
+
+    /// <summary>
+    /// Converts the gem history data into json form.
+    /// </summary>
+    /// <returns>The JSON data of gem history</returns>
+    public string ToJson()
+    {
+        return JsonConvert.SerializeObject(mirrorData);
+    }
 }
