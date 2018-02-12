@@ -5,22 +5,24 @@ using UnityEngine;
 
 public class AnalyticsGemHistory {
 
-	public Dictionary<string, List<AnalyticsGem>> mirrorData = new Dictionary<string, List<AnalyticsGem>>();
-
-	/// <summary>
-	/// Method for tracking gem placements in the level.
-	/// </summary>
-	/// <param name="mirror">Mirror that gem was placed in.</param>
-	/// <param name="gemName">Name of gem that was placed - name described the gem value.</param>
-	public void AddGem(string mirror, string action, string gemName)
-	{
-		if (!mirrorData.ContainsKey (mirror)) 
-		{
-			mirrorData.Add (mirror, new List<AnalyticsGem> ());
-		} 
-
-		mirrorData [mirror].Add (new AnalyticsGem(action,gemName));
-	}
+	public Dictionary<string, List<AnalyticsGem>> actionData = new Dictionary<string, List<AnalyticsGem>>();
+    
+    /// <summary>
+    /// Adds an action to the action history data structure. MADE FOR ONLY ACTIONS CURRENTLY!
+    /// </summary>
+    /// <param name="selection">What object was selected.</param>
+    /// <param name="action">What action was performed.</param>
+    /// <param name="input">What object was input.</param>
+    /// <param name="actionTime">When the action occur.</param>
+    public void AddAction(string selection, string action, string input, float actionTime)
+    {
+        if (!actionData.ContainsKey(Global.ANALYTICS_ACTIONS))
+        {
+            actionData.Add(Global.ANALYTICS_ACTIONS, new List<AnalyticsGem>());
+        }
+        
+        actionData[Global.ANALYTICS_ACTIONS].Add(new AnalyticsGem(selection, action, input, actionTime));
+    }
 
 	/// <summary>
 	/// Prints some debug strings.
@@ -39,13 +41,13 @@ public class AnalyticsGemHistory {
 
         Debug.Log(ToJson());
 	}
-
+        
     /// <summary>
     /// Converts the gem history data into json form.
     /// </summary>
     /// <returns>The JSON data of gem history</returns>
     public string ToJson()
     {
-        return JsonConvert.SerializeObject(mirrorData);
+        return JsonConvert.SerializeObject(actionData);
     }
 }

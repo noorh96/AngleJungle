@@ -1,10 +1,12 @@
 ﻿public class AnalyticsGem {
 
-	public string action, gemName;
+	public string selection, action, input, time;
 
-	public AnalyticsGem(string action, string gemName)
+	public AnalyticsGem(string selection, string action, string input, float actionTime)
 	{
+        this.selection = selection;
 		this.action = action;
-		this.gemName = gemName;
+		this.input = input;
+        time = actionTime.ToString();
 	}
 }

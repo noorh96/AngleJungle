@@ -245,7 +245,15 @@ public class Mirror : MonoBehaviour
 
         isProtractorOn = !isProtractorOn;
 		as_toggle.Play ();
-		AnalyticsSingleton.Instance.protractorOpenedNum++;
+
+        if(isProtractorOn)
+        {
+            AnalyticsSingleton.Instance.gemHistory.AddAction(GetComponent<Mirror>().name, Global.ANALYTICS_PROTRACTOR_CLOSED, "-1", Time.time);
+        }
+        else
+        {
+            AnalyticsSingleton.Instance.gemHistory.AddAction(GetComponent<Mirror>().name, Global.ANALYTICS_PROTRACTOR_OPENED, "-1", Time.time);
+        }
 	}
 
 	/// <summary>
