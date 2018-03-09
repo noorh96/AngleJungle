@@ -39,11 +39,13 @@ public class Global
 	// Analytics event strings
 	public const string ANALYTICS_ACTION_REMOVED = "action_removed";
 	public const string ANALYTICS_ACTION_PLACED = "action_placed";
-	public const string ANALYTICS_PROTRACTOR_OPENED = "protractor_opened";
+    public const string ANALYTICS_ACTIONS = "Actions";
+    public const string ANALYTICS_GEM_HISTORY = "gem_history";
+    public const string ANALYTICS_GEM_END_STATE = "gem_end_state";
+    public const string ANALYTICS_PROTRACTOR_OPENED = "protractor_opened";
     public const string ANALYTICS_PROTRACTOR_CLOSED = "protractor_closed";
 	public const string ANALYTICS_LEVEL_ENDED = "levelEnded";
 	public const string ANALYTICS_LEVEL_TIME = "levelTime";
-    public const string ANALYTICS_ACTIONS = "Actions";
 
 	public enum Interface {Touch = 0, Mouse = 1};
 }

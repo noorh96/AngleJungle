@@ -27,8 +27,11 @@ public class AnalyticsSingleton : Singleton<AnalyticsSingleton> {
 		Dictionary<string, object> dataDict = new Dictionary<string, object> ();
 
 		dataDict.Add (Global.ANALYTICS_LEVEL_TIME, levelTime);
+        dataDict.Add(Global.ANALYTICS_GEM_END_STATE, gemEndState.ToJson());
+        dataDict.Add(Global.ANALYTICS_GEM_HISTORY, gemHistory.ToJson());
 
 		Analytics.CustomEvent (levelName, dataDict);
+        Debug.Log("DISPATCHED ANALYTICS DATA!");
 
 		// Flush mirrorData for next level
 		if (gemHistory.actionData != null || gemEndState.mirrorData != null) 
@@ -36,14 +39,15 @@ public class AnalyticsSingleton : Singleton<AnalyticsSingleton> {
 			gemHistory.actionData.Clear ();
 			gemEndState.mirrorData.Clear ();
 		}
+        Debug.Log("FLUSHING GEM DICTIONARIES!");
 	}
 
 	public void DebugPrint()
 	{
 		Debug.Log (Global.ANALYTICS_LEVEL_TIME + " " + levelTime);
-		Debug.Log ("GEM HISTORY");
+		Debug.Log ("gem_history");
 		gemHistory.DebugPrint ();
-		Debug.Log ("GEM END STATE");
+		Debug.Log ("gem_end_state");
 		gemEndState.DebugPrint ();
 	}
 }

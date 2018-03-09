@@ -284,9 +284,8 @@ public class GameManager : MonoBehaviour
 		AnalyticsSingleton.Instance.gemEndState.BuildGemEndState (mirrors.ToList());
 		AnalyticsSingleton.Instance.CalculateLevelTime ();
 		//AnalyticsSingleton.Instance.gemEndState.DebugPrint ();
-		AnalyticsSingleton.Instance.DebugPrint();
-		//TODO : Enable when done
-		//AnalyticsSingleton.Instance.DispatchData ();
+		//AnalyticsSingleton.Instance.DebugPrint();
+		AnalyticsSingleton.Instance.DispatchData ();
 	}
 
 	/// <summary>
