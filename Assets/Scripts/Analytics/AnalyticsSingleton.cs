@@ -24,22 +24,19 @@ public class AnalyticsSingleton : Singleton<AnalyticsSingleton> {
 	/// </summary>	
 	public void DispatchData()
 	{
-		Dictionary<string, object> dataDict = new Dictionary<string, object> ();
+        Dictionary<string, object> dataDict = new Dictionary<string, object>
+        {
+            { Global.ANALYTICS_LEVEL_TIME, levelTime },
+            { Global.ANALYTICS_GEM_END_STATE, gemEndState.ToJson() },
+            { Global.ANALYTICS_GEM_HISTORY, gemHistory.ToJson() }
+        };
 
-		dataDict.Add (Global.ANALYTICS_LEVEL_TIME, levelTime);
-        dataDict.Add(Global.ANALYTICS_GEM_END_STATE, gemEndState.ToJson());
-        dataDict.Add(Global.ANALYTICS_GEM_HISTORY, gemHistory.ToJson());
-
-		Analytics.CustomEvent (levelName, dataDict);
+        Analytics.CustomEvent (levelName, dataDict);
         Debug.Log("DISPATCHED ANALYTICS DATA!");
 
-		// Flush mirrorData for next level
-		if (gemHistory.actionData != null || gemEndState.mirrorData != null) 
-		{
-			gemHistory.actionData.Clear ();
-			gemEndState.mirrorData.Clear ();
-		}
         Debug.Log("FLUSHING GEM DICTIONARIES!");
+        gemHistory.actionData.Clear (); 
+		gemEndState.mirrorData.Clear ();
 	}
 
 	public void DebugPrint()
