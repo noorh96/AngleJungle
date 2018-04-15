@@ -18,7 +18,7 @@ public class CameraController : MonoBehaviour {
     {
         Cursor.lockState = CursorLockMode.Locked;
 
-        _playerCamera = transform.FindChild("Main Camera").GetComponent<Camera>();
+        _playerCamera = transform.Find("Main Camera").GetComponent<Camera>();
         gameObject.AddComponent<CharacterController>();
         _characterController = GetComponent<CharacterController>();
     }

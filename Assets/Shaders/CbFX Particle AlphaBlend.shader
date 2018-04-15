@@ -1,3 +1,5 @@
+// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
 //========================================
 //
 // SHAPE FX
@@ -68,7 +70,7 @@ Shader "ShapeFX/Particles/Alpha Blended"
 				v2f vert (appdata_t v)
 				{
 					v2f o;
-					o.vertex = mul(UNITY_MATRIX_MVP, v.vertex);
+					o.vertex = UnityObjectToClipPos(v.vertex);
 			#if SOFTPARTICLES_ON && !SHFX_DISABLE_SOFT_PARTICLES
 					o.projPos = ComputeScreenPos (o.vertex);
 					COMPUTE_EYEDEPTH(o.projPos.z);
