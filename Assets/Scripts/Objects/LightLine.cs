@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class LightLine : MonoBehaviour {
-	
+
 	void OnParticleCollision(GameObject other)
 	{
 		if (other.tag == Global.TAG_POWER_GEM) 
@@ -13,7 +13,15 @@ public class LightLine : MonoBehaviour {
 
 		if (other.tag == Global.TAG_MIRROR_RECEIVER) 
 		{
-			other.GetComponentInParent<Mirror> ().ActiveLight();
-		}
+            //Mirror mirror = other.GetComponent<Mirror>();
+
+            //if(mirror.isReceiver)
+            //{
+                other.GetComponentInParent<Mirror>().ActiveLight();
+            //}
+        }
+
+        print("collision!");
+        print(other.tag);
 	}
 }

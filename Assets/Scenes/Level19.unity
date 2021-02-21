@@ -333,35 +333,6 @@ Prefab:
       propertyPath: maximumSlots
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 1343416175992310, guid: 139477f9931e8fa4fbb93752e2e442a0, type: 2}
-      propertyPath: m_Layer
-      value: 11
-      objectReference: {fileID: 0}
-    - target: {fileID: 198842786399265150, guid: 139477f9931e8fa4fbb93752e2e442a0,
-        type: 2}
-      propertyPath: CollisionModule.collidesWith.m_Bits
-      value: 62720
-      objectReference: {fileID: 0}
-    - target: {fileID: 198842786399265150, guid: 139477f9931e8fa4fbb93752e2e442a0,
-        type: 2}
-      propertyPath: randomSeed
-      value: -345695747
-      objectReference: {fileID: 0}
-    - target: {fileID: 198662295970903778, guid: 139477f9931e8fa4fbb93752e2e442a0,
-        type: 2}
-      propertyPath: CollisionModule.maxCollisionShapes
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 198662295970903778, guid: 139477f9931e8fa4fbb93752e2e442a0,
-        type: 2}
-      propertyPath: randomSeed
-      value: 1120648385
-      objectReference: {fileID: 0}
-    - target: {fileID: 198662295970903778, guid: 139477f9931e8fa4fbb93752e2e442a0,
-        type: 2}
-      propertyPath: CollisionModule.collidesWith.m_Bits
-      value: 63232
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 139477f9931e8fa4fbb93752e2e442a0, type: 2}
   m_IsPrefabParent: 0
@@ -1149,11 +1120,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 18
       objectReference: {fileID: 0}
-    - target: {fileID: 114765033374216938, guid: 139477f9931e8fa4fbb93752e2e442a0,
-        type: 2}
-      propertyPath: TutorialHand
-      value: 
-      objectReference: {fileID: 346927928}
     - target: {fileID: 1227229736917662, guid: 139477f9931e8fa4fbb93752e2e442a0, type: 2}
       propertyPath: m_Name
       value: Mirror2
@@ -1168,19 +1134,9 @@ Prefab:
       propertyPath: isReceiver
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1343416175992310, guid: 139477f9931e8fa4fbb93752e2e442a0, type: 2}
+    - target: {fileID: 1570068500241776, guid: 139477f9931e8fa4fbb93752e2e442a0, type: 2}
       propertyPath: m_Layer
       value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 198842786399265150, guid: 139477f9931e8fa4fbb93752e2e442a0,
-        type: 2}
-      propertyPath: CollisionModule.collidesWith.m_Bits
-      value: 60672
-      objectReference: {fileID: 0}
-    - target: {fileID: 198842786399265150, guid: 139477f9931e8fa4fbb93752e2e442a0,
-        type: 2}
-      propertyPath: randomSeed
-      value: -1407741340
       objectReference: {fileID: 0}
     - target: {fileID: 198662295970903778, guid: 139477f9931e8fa4fbb93752e2e442a0,
         type: 2}
@@ -1191,21 +1147,6 @@ Prefab:
         type: 2}
       propertyPath: randomSeed
       value: 1120648385
-      objectReference: {fileID: 0}
-    - target: {fileID: 198662295970903778, guid: 139477f9931e8fa4fbb93752e2e442a0,
-        type: 2}
-      propertyPath: CollisionModule.maxCollisionShapes
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 82094948379093614, guid: 139477f9931e8fa4fbb93752e2e442a0,
-        type: 2}
-      propertyPath: m_audioClip
-      value: 
-      objectReference: {fileID: 8300000, guid: cd0ddb829e5a6624c9e7ce16bb75743a, type: 3}
-    - target: {fileID: 50397803351521310, guid: 139477f9931e8fa4fbb93752e2e442a0,
-        type: 2}
-      propertyPath: m_BodyType
-      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 139477f9931e8fa4fbb93752e2e442a0, type: 2}
