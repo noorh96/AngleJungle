@@ -1567,11 +1567,6 @@ Prefab:
       propertyPath: mask
       value: 
       objectReference: {fileID: 281759077}
-    - target: {fileID: 60186100066466300, guid: 74d6e66b262d2824aabcb25554ddc6a9,
-        type: 2}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1658764700100520, guid: 74d6e66b262d2824aabcb25554ddc6a9, type: 2}
       propertyPath: m_Layer
       value: 8
@@ -1580,6 +1575,11 @@ Prefab:
         type: 2}
       propertyPath: m_SortingLayerID
       value: -453055819
+      objectReference: {fileID: 0}
+    - target: {fileID: 60186100066466300, guid: 74d6e66b262d2824aabcb25554ddc6a9,
+        type: 2}
+      propertyPath: m_IsTrigger
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 74d6e66b262d2824aabcb25554ddc6a9, type: 2}
