@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Analytics;
 using UnityEngine.SceneManagement;
 
 public class AnalyticsSingleton : Singleton<AnalyticsSingleton> {
@@ -31,7 +30,8 @@ public class AnalyticsSingleton : Singleton<AnalyticsSingleton> {
             { Global.ANALYTICS_GEM_HISTORY, gemHistory.ToJson() }
         };
 
-        Analytics.CustomEvent (levelName, dataDict);
+        // Enable when UnityEngine analytics is available
+        //Analytics.CustomEvent (levelName, dataDict);
         Debug.Log("DISPATCHED ANALYTICS DATA!");
 
         Debug.Log("FLUSHING GEM DICTIONARIES!");

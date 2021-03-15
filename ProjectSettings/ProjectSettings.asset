@@ -166,7 +166,7 @@ PlayerSettings:
     tvOS: com.Tiny.AngleJungle
   buildNumber:
     iOS: 0
-  AndroidBundleVersionCode: 4
+  AndroidBundleVersionCode: 6
   AndroidMinSdkVersion: 16
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 1
@@ -246,7 +246,7 @@ PlayerSettings:
   tvOSManualSigningProvisioningProfileID: 
   appleEnableAutomaticSigning: 0
   clonedFromGUID: 00000000000000000000000000000000
-  AndroidTargetArchitectures: 5
+  AndroidTargetArchitectures: 3
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
   AndroidKeystoreName: C:/Users/Jibran/Downloads/anglejungle.keystore
