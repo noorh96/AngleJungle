@@ -22,7 +22,7 @@ Setup Instructions:<br />
 
 Download Necessary Software: <br />
 
-1. [Download Unity 2017.3.1f1](https://unity3d.com/get-unity/download/archive) and necessary build support addons.
+1. [Download Unity 2017.4.40f1](https://unity3d.com/get-unity/download/archive) and necessary build support addons.
 2. [Download Github Desktop Client for Windows/Mac](https://desktop.github.com/)
 3. [Download Unity Github Plugin](https://unity.github.com/) or via the Unity Asset Store.
 
