@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
 	public AudioSource goButton_as;
 	public AudioSource music_win;
 	public AudioSource complete_level;
+	public Log logObject;
 
 	private Coroutine countToWin;
 
@@ -54,6 +55,8 @@ public class GameManager : MonoBehaviour
 		Global.isDragging = false;
 		Global.isPaused = false;
 		protractors = GameObject.FindGameObjectsWithTag (Global.TAG_PROTRACTOR);
+		logObject = new Log();
+		logObject.WriteToFile(SceneManager.GetActiveScene ().name + " started");
 
 		foreach (GameObject pro in protractors) 
 		{
@@ -75,6 +78,7 @@ public class GameManager : MonoBehaviour
 			{
 				goButton_as.Play ();
 				Win ();
+				logObject.WriteToFile(SceneManager.GetActiveScene ().name + " complete");
 			}
 		}
 
@@ -87,6 +91,7 @@ public class GameManager : MonoBehaviour
             {
                 goButton_as.Play ();
                 Win ();
+				logObject.WriteToFile("Level complete.");
             }
         }
 	}
@@ -101,6 +106,7 @@ public class GameManager : MonoBehaviour
 		canvasInGame.SetActive (false);
 		//Global.isPaused = true;
 		isPauseMenuOn = true;
+		logObject.WriteToFile(SceneManager.GetActiveScene ().name +" paused.");
 	}
 
 	/// <summary>
@@ -129,6 +135,7 @@ public class GameManager : MonoBehaviour
 	/// </summary>
 	public void ShowTreasure()
 	{
+		logObject.WriteToFile("Trasure acquired.");
 		music_win.Play ();
 		StartCoroutine (GoToTreasureRoom());
 	}
@@ -140,6 +147,7 @@ public class GameManager : MonoBehaviour
 	IEnumerator GoToTreasureRoom()
 	{
 		yield return new WaitForSeconds (3.6f);
+		logObject.WriteToFile("Accessed treasure room");
 		SceneManager.LoadScene (Global.SCENE_TREASURE);
 	}
 
@@ -214,6 +222,7 @@ public class GameManager : MonoBehaviour
 	{
 		Scene scene = SceneManager.GetActiveScene ();
 		SceneManager.LoadScene (scene.name);
+		logObject.WriteToFile(SceneManager.GetActiveScene ().name + " reloaded");
 	}
 
 	/// <summary>
@@ -231,6 +240,7 @@ public class GameManager : MonoBehaviour
 	public void LoadHomeScene ()
 	{
 		SceneManager.LoadScene (Global.SCENE_MAP);
+		logObject.WriteToFile(SceneManager.GetActiveScene ().name + " exited. Going back to map");
 	}
 
 	/// <summary>

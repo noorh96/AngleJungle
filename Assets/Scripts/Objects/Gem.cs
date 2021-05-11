@@ -39,6 +39,7 @@ public class Gem : MonoBehaviour
 
 	// Floats
 	private float dist;
+	public Log logObject;
 
 	// Use this for initialization
 	void Start ()
@@ -59,6 +60,7 @@ public class Gem : MonoBehaviour
 		originalScale = transform.localScale;
 		OnSelectPar.SetActive (false);
 		PutGemInMirror ();
+		logObject = new Log();
 	}
 
 	/// <summary>
@@ -141,6 +143,7 @@ public class Gem : MonoBehaviour
 					{
 						AnalyticsSingleton.Instance.gemHistory.AddAction (MirrorGO.GetComponent<Mirror> ().name, Global.ANALYTICS_ACTION_REMOVED, gemToBeSwapped.GetComponent<Gem> ().name, Time.time);
 						gemToBeSwapped.GetComponent<Gem>().ReleaseThisGem();
+						logObject.WriteToFile("Gem swapped");
 					}
 
 					// Handling collisions with mirror
@@ -158,6 +161,8 @@ public class Gem : MonoBehaviour
 							//fetch the position of gem
 							slotPosition = MirrorGO.GetComponent<Mirror>().ArrangePosition(gameObject);
 							MirrorGO.GetComponent<Mirror>().pickerNumber += gemAngle;
+							logObject.WriteToFile(gameObject.name + " placed in slot");
+
 							//set anti-cheater conuter to 2
 							Global.antiCheater = 2;
 						}
@@ -337,6 +342,7 @@ public class Gem : MonoBehaviour
 				transform.position += new Vector3 (0f, -1f, 0f);
 			}
 		}
+		logObject.WriteToFile("Gem removed");
 	}
 
 	void OnTriggerEnter2D (Collider2D coll)

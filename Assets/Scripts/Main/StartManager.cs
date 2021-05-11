@@ -10,6 +10,7 @@ public class StartManager : MonoBehaviour {
     public GameObject ResetConfirmCanvas;
 	bool showLoading = false;
 	GameObject musicManager;
+    public Log logObject;
 
     // Use this for initialization
     void Awake() 
@@ -18,6 +19,13 @@ public class StartManager : MonoBehaviour {
         ResetCanvas.SetActive(false);
         ResetConfirmCanvas.SetActive(false);
         SaveLoad.Load();
+        
+        logObject = new Log();
+        Debug.Log(Application.persistentDataPath); // move this to init message location
+		Debug.Log("TESTING MESSAGE IS LOGGING EVEN WORKING??");
+		logObject.WriteToFile("\n \n \n====================================================================");
+		logObject.WriteToFile("Initializing Log file");
+
     }
 
 	void Start () 

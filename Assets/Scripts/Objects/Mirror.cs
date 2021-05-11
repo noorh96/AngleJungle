@@ -56,6 +56,7 @@ public class Mirror : MonoBehaviour
 
 	private bool isProtractorOn = false;
 	private Vector3 proOriginalScale;
+	public Log logObject;
 
 	/// <summary>
 	/// Initialize the slot system, and each slot's position on awake.
@@ -117,6 +118,7 @@ public class Mirror : MonoBehaviour
 
 		proOriginalScale = new Vector3(0.7f, 0.7f, 0.7f);
 		protractor.transform.localScale = Vector3.zero;
+		logObject = new Log();
 	}
 
 	/// <summary>
@@ -249,10 +251,12 @@ public class Mirror : MonoBehaviour
         if(isProtractorOn)
         {
             AnalyticsSingleton.Instance.gemHistory.AddAction(GetComponent<Mirror>().name, Global.ANALYTICS_PROTRACTOR_CLOSED, "-1", Time.time);
+			logObject.WriteToFile("Protractor accessed.");
         }
         else
         {
             AnalyticsSingleton.Instance.gemHistory.AddAction(GetComponent<Mirror>().name, Global.ANALYTICS_PROTRACTOR_OPENED, "-1", Time.time);
+			logObject.WriteToFile("Protractor closed.");
         }
 	}
 
@@ -296,6 +300,7 @@ public class Mirror : MonoBehaviour
 				su.isSlotEmpty = true;
 			}
 		}
+		logObject.WriteToFile("Gem removed");
 	}
 
 	/// <summary>
